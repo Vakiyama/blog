@@ -1,0 +1,10 @@
+(executable
+ (public_name hello)
+ (name main)
+ (libraries dream)
+ (preprocess (pps lwt_ppx)))
+
+(rule
+ (targets template.ml)
+ (deps template.eml.html)
+ (action (run dream_eml %{deps} --workspace %{workspace_root})))

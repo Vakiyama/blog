@@ -1,40 +1,21 @@
 {
-    description = "A very basic flake with dream";
+    description = "a Bun ts project";
 
     inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-        opam-nix.url = "github:tweag/opam-nix";
-        flake-utils.url = "github:numtide/flake-utils";
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     };
 
-    outputs = { nixpkgs, ... }:
-    let
-        systems = [ "x86_64-darwin" "aarch64-darwin" "x86_64-linux" ];
-
-        createDevShell = system:
+    outputs = { self, nixpkgs, flake-utils }:
+        flake-utils.lib.eachDefaultSystem ( system:
         let
-            pkgs = import nixpkgs { inherit system; };
-            dream-deps = with pkgs; [
-                    pkg-config
-                    openssl
-            ];
-        in
-            pkgs.mkShell {
-                buildInputs = with pkgs; [
-                    dune_3
-                    ocaml
-                    ocamlformat
-                    opam
-                    libev
-                ] ++ dream-deps;
-
-                shellHook = ''
-                    eval $(opam env)    
-                '';
+            pkgs = nixpkgs.legacyPackages.${ system };
+        in {
+            devShell = with pkgs; pkgs.mkShell {
+                buildInputs = [
+                    bun
+                    nodejs_20
+                ];
             };
-    in {
-        devShell = nixpkgs.lib.genAttrs systems createDevShell;
-    };
+        }
+    );
 }
-
-

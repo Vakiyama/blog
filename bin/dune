@@ -1,5 +1,5 @@
 (executable
- (public_name hello)
+ (public_name app)
  (name main)
  (libraries dream)
  (preprocess (pps lwt_ppx)))

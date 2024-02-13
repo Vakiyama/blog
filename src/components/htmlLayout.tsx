@@ -13,10 +13,7 @@ export const HtmlLayout = ({
   return (
     <html lang="en">
       <Head title={title} css={css} />
-      <body>
-        <Navbar />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 };

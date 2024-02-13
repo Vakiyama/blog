@@ -5,7 +5,7 @@ export const Blog = ({ markdown }: { markdown: string }) => {
   const html = parseToHtml(markdown);
   return (
     <HtmlLayout css={['home.css']} title="Blog">
-      <main>
+      <main class="blog">
         <article>{html}</article>
       </main>
     </HtmlLayout>

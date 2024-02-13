@@ -1,12 +1,8 @@
 # Elysia with Bun runtime
 
-## Getting Started
+Very WIP
 
-To get started with this template, simply paste this command into your terminal:
-
-```bash
-bun create elysia ./elysia-example
-```
+Site live @ https://blog-hv43.onrender.com/
 
 ## Development
 

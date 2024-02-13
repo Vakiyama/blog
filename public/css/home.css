@@ -62,8 +62,10 @@ div {
 }
 
 .guide_textWrapper {
-  padding: 20px;
+  padding: 20px 40px;
   font-size: 28px;
+  overflow: scroll;
+  height: 95%;
 }
 
 .highlight-rosewater {
@@ -132,4 +134,16 @@ p {
   filter: invert();
   position: relative;
   top: 2px;
+}
+
+.guide_blogPreview p {
+  font-size: 18px;
+}
+
+.guide_blogPreview h1 {
+  font-size: 30px;
+}
+
+.guide_blogPreview h2 {
+  font-size: 22px;
 }

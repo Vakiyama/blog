@@ -8,7 +8,9 @@
   "dependencies": {
     "@elysiajs/html": "^0.8.0",
     "@elysiajs/static": "^0.8.1",
-    "elysia": "latest"
+    "@types/fuzzy-search": "^2.1.5",
+    "elysia": "latest",
+    "fuzzy-search": "^3.2.1"
   },
   "devDependencies": {
     "bun-types": "latest"

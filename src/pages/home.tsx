@@ -1,39 +1,47 @@
 import { HtmlLayout } from '../components/htmlLayout';
 
+export function GuideText() {
+  return (
+    <div>
+      <br />
+      <p>
+        Hello, I'm <span class="highlight-rosewater">Vitor</span>.
+      </p>
+      <p>Welcome to my blog.</p>
+      <br />
+      <p>
+        Press{' '}
+        <span class="highlight-command">
+          <b>p + f</b>
+        </span>{' '}
+        to <span class="highlight-link">search</span> for a blog or link.
+      </p>
+      <p>This hotkey will work anywhere on this site.</p>
+      <br />
+      <p>
+        During a search, you can press{' '}
+        <span class="highlight-command">
+          <b>Enter</b>
+        </span>{' '}
+        to go to the currently highlighted blog.
+      </p>
+      <p>
+        You can also{' '}
+        <span class="highlight-command">
+          <b>click</b>
+        </span>{' '}
+        on <span class="highlight-link">results</span> to follow them as normal.
+      </p>
+    </div>
+  );
+}
+
 function Guide() {
   return (
     <>
       <div class="guide telescopeBorder">
         <div class="guide_textWrapper">
-          <br />
-          <p>
-            Hello, I'm <span class="highlight-rosewater">Vitor</span>.
-          </p>
-          <p>Welcome to my blog.</p>
-          <br />
-          <p>
-            Press{' '}
-            <span class="highlight-command">
-              <b>p + f</b>
-            </span>{' '}
-            to{' '}
-            <span class="highlight-link">
-              <b>search</b>
-            </span>{' '}
-            for a blog or link.
-          </p>
-          <p>
-            Press{' '}
-            <span class="highlight-command">
-              <b>p + s</b>
-            </span>{' '}
-            to{' '}
-            <span class="highlight-link">
-              <b>search</b>
-            </span>{' '}
-            blog contents by keyword.
-          </p>
-          <p>These hotkeys will work anywhere on this site.</p>
+          <GuideText />
         </div>
       </div>
     </>
@@ -48,15 +56,19 @@ function Search() {
         <input
           class="searchInput"
           type="search"
-          name="search"
+          name="queryString"
           placeholder="Search"
+          autocomplete="false"
+          autofocus="true"
+          hx-trigger='keyup[key=="Enter"] from:input'
+          hx-get="/search/redirect-blog"
         />
       </div>
     </>
   );
 }
 
-function Link({
+export function Link({
   src,
   href,
   children,
@@ -76,34 +88,18 @@ function Link({
 export const Home = () => {
   return (
     <HtmlLayout css={['home.css']} title="Home">
-      <main>
-        <div class="leftWrapper">
-          <div class="links telescopeBorder">
-            <div class="links_linkWrapper">
-              <Link
-                src="https://www.svgrepo.com/show/368813/markdown.svg"
-                href="/about.md"
-              >
-                about-me.md
-              </Link>
-              <Link
-                src="https://www.svgrepo.com/show/368813/markdown.svg"
-                href="/about-this-blog.md"
-              >
-                about-this-blog.md
-              </Link>
-              <Link
-                src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
-                href="https://github.com/Vakiyama"
-              >
-                github/Vakiyama
-              </Link>
+      <>
+        <main>
+          <div class="leftWrapper">
+            <div class="links telescopeBorder">
+              <div class="links_linkWrapper"></div>
             </div>
+            <Search />
           </div>
-          <Search />
-        </div>
-        <Guide />
-      </main>
+          <Guide />
+        </main>
+        <script src="/public/js/searchScript.js"></script>
+      </>
     </HtmlLayout>
   );
 };

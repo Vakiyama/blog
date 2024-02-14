@@ -68,8 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
             target: '.guide_textWrapper',
           }
         );
-      }, 1);
-    }, 1);
+      }, 50); // space
+    }, 50); // debounce
   }
 
   searchInput.addEventListener('input', search);

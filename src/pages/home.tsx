@@ -36,13 +36,11 @@ export function GuideText() {
   );
 }
 
-function Guide() {
+function Guide({ showTutorialText = true }: { showTutorialText: boolean }) {
   return (
     <>
       <div class="guide telescopeBorder">
-        <div class="guide_textWrapper">
-          <GuideText />
-        </div>
+        <div class="guide_textWrapper">{showTutorialText && <GuideText />}</div>
       </div>
     </>
   );
@@ -85,20 +83,42 @@ export function Link({
   );
 }
 
+function TelescopeGui({ home }: { home: boolean }) {
+  return (
+    <>
+      <div class={`leftWrapper`}>
+        <div class="links telescopeBorder">
+          <div class="links_linkWrapper"></div>
+        </div>
+        <Search />
+      </div>
+      <Guide showTutorialText={home} />
+      <script src="/public/js/searchScript.js"></script>
+    </>
+  );
+}
+
+export function Telescope({ home = true }: { home?: boolean }) {
+  return (
+    <>
+      {!home ? (
+        <div class="telescope hidden">
+          <TelescopeGui home={home} />;
+        </div>
+      ) : (
+        <TelescopeGui home={home} />
+      )}
+    </>
+  );
+}
+
 export const Home = () => {
   return (
     <HtmlLayout css={['home.css']} title="Home">
       <>
         <main>
-          <div class="leftWrapper">
-            <div class="links telescopeBorder">
-              <div class="links_linkWrapper"></div>
-            </div>
-            <Search />
-          </div>
-          <Guide />
+          <Telescope />
         </main>
-        <script src="/public/js/searchScript.js"></script>
       </>
     </HtmlLayout>
   );

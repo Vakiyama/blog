@@ -3,11 +3,11 @@ body {
   position: relative;
   flex-direction: column;
   height: 100vh;
-  width: 100vw;
   align-items: center;
   justify-content: center;
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 main {
@@ -64,8 +64,14 @@ div {
 .guide_textWrapper {
   padding: 20px 40px;
   font-size: 28px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   height: 95%;
+  scrollbar-width: none;
+}
+
+.guide_textWrapper::-webkit-scrollbar {
+  width: 0;
 }
 
 .highlight-rosewater {
@@ -118,6 +124,7 @@ p {
   display: flex;
   align-items: center;
   margin: 6px 0;
+  width: fit-content;
 }
 
 .link:hover {
@@ -146,4 +153,18 @@ p {
 
 .guide_blogPreview h2 {
   font-size: 22px;
+}
+
+.telescope {
+  background-color: var(--base);
+  position: absolute;
+  max-width: 1640px;
+  max-height: 790px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.hidden {
+  display: none;
 }

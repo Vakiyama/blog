@@ -1,6 +1,10 @@
 let timeout;
 let commandStack = [];
 
+const isHome = window.location.pathname === '/';
+
+const telescope = isHome ? null : document.querySelector('.telescope');
+
 function handleCommands(ev) {
   if (timeout) clearTimeout(timeout);
 
@@ -9,6 +13,15 @@ function handleCommands(ev) {
   if (focused === search) {
     if (ev.key === 'Escape') return search.blur();
     return;
+  } else {
+    if (
+      ev.key === 'Escape' &&
+      !isHome &&
+      !telescope.classList.contains('hidden')
+    ) {
+      telescope.classList.add('hidden');
+      return;
+    }
   }
 
   if (ev.key === 'p' && commandStack.length === 0) {
@@ -18,7 +31,9 @@ function handleCommands(ev) {
     }, 500);
   }
   if (ev.key === 'f' && commandStack[0] === 'p') {
-    console.log('focusing search');
+    if (!isHome) {
+      telescope.classList.remove('hidden');
+    }
     setTimeout(() => search.focus(), 50);
     commandStack = [];
     clearTimeout(timeout);
@@ -31,18 +46,31 @@ document.addEventListener('keydown', (ev) => {
 
 document.addEventListener('DOMContentLoaded', function() {
   const searchInput = document.querySelector('.searchInput');
+  searchInput.value = '';
 
-  htmx.ajax('GET', `/search?queryString=`, {
+  htmx.ajax('GET', `/search?queryString=&home=${isHome}`, {
     target: '.links_linkWrapper',
   });
 
-  searchInput.addEventListener('input', () => {
-    htmx.ajax('GET', `/search?queryString=${searchInput.value}`, {
-      target: '.links_linkWrapper',
-    });
+  let timeout;
 
-    htmx.ajax('GET', `/search/preview?queryString=${searchInput.value}`, {
-      target: '.guide_textWrapper',
-    });
-  });
+  function search() {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      htmx.ajax('GET', `/search?queryString=${searchInput.value}`, {
+        target: '.links_linkWrapper',
+      });
+      setTimeout(() => {
+        htmx.ajax(
+          'GET',
+          `/search/preview?queryString=${searchInput.value}&home=${isHome}`,
+          {
+            target: '.guide_textWrapper',
+          }
+        );
+      }, 1);
+    }, 1);
+  }
+
+  searchInput.addEventListener('input', search);
 });

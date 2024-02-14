@@ -7,7 +7,7 @@ export const blogRouter = new Elysia().use(html()).get(
   async ({ params: { blogName } }) => {
     const markdownFile = Bun.file(`blogs/${blogName}`);
     if (markdownFile.size === 0) throw new NotFoundError();
-    return <Blog markdown={await markdownFile.text()} />;
+    return <Blog markdown={await markdownFile.text()} blogName={blogName} />;
   },
   { params: t.Object({ blogName: t.String() }) }
 );

@@ -5,6 +5,7 @@ import { readdir } from 'node:fs/promises';
 import FuzzySearch from 'fuzzy-search';
 import { parseToHtml } from '../parser/markdownToHtml';
 import path from 'path';
+import { app } from '..';
 
 const highlightQuery = (query: string, text: string): JSX.Element => {
   console.log(query);
@@ -14,7 +15,6 @@ const highlightQuery = (query: string, text: string): JSX.Element => {
 
   const splitText = text.split(new RegExp(`(${query})`, 'gi'));
 
-  console.log(splitText);
   return (
     <>
       {splitText.map((chunk) =>
@@ -71,6 +71,11 @@ const internalLinks: InternalLink[] = [
     href: 'https://github.com/Vakiyama',
     src: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg',
   },
+  {
+    title: 'index.html',
+    href: '/',
+    src: 'https://www.svgrepo.com/show/478664/html-tag.svg',
+  },
 ];
 
 const blogPath = path.join(__dirname, '../../blogs');
@@ -111,21 +116,15 @@ export const searchRouter = new Elysia()
   )
   .get(
     '/search/preview',
-    async ({ query: { queryString } }) => {
+    async ({ query: { queryString, home } }) => {
       if (queryString === '') {
-        return (
-          <>
-            <GuideText />
-          </>
-        );
+        return <>{home && <GuideText />}</>;
       }
-      // get the top result
       const topResult = (await searchBlogs(queryString))[0];
       if (!topResult) {
         return;
       }
       if (topResult.title.endsWith('md')) {
-        // is a blog, load and display preview
         try {
           const markdown = Bun.file(`blogs/${topResult.title}`);
           const html = parseToHtml(await markdown.text());
@@ -134,11 +133,30 @@ export const searchRouter = new Elysia()
           console.log(e);
           throw new InternalServerError();
         }
+      } else if (topResult.title.endsWith('html')) {
+        return (
+          <p>
+            The home page,{' '}
+            <span class="highlight-command">
+              @ <a>{app.server?.url}</a>
+            </span>
+          </p>
+        );
+      } else {
+        return (
+          <>
+            <p>External Link to: </p>
+            <a href={topResult.href}>
+              <span class="highlight-link">{topResult.href}</span>
+            </a>
+          </>
+        );
       }
     },
     {
       query: t.Object({
         queryString: t.String(),
+        home: t.BooleanString(),
       }),
     }
   )

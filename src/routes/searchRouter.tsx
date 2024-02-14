@@ -72,13 +72,13 @@ function searchBlogs(queryString: string) {
     post: '</span>',
     extract: (el: InternalLink) => el.title,
   };
-  const results = fuzzy.filter(queryString, allLinks, options).map((result) => {
-    result.original.formated = result.string;
-    return result.original;
-  });
-  console.log(results, 'RESULTS!!', queryString);
+  const results = fuzzy
+    .filter(queryString.trim(), allLinks, options)
+    .map((result) => {
+      result.original.formated = result.string;
+      return result.original;
+    });
 
-  console.log(results.length);
   return results;
 }
 
@@ -90,11 +90,10 @@ export const searchRouter = new Elysia()
       try {
         const result = searchBlogs(queryString);
         if (home) {
-          const homeIndex = result.findIndex((result) => result.title === 'index.html')
-          result.splice(
-            homeIndex,
-            homeIndex > -1 ? 1 : 0
+          const homeIndex = result.findIndex(
+            (result) => result.title === 'index.html'
           );
+          result.splice(homeIndex, homeIndex > -1 ? 1 : 0);
         }
         return <LinkList links={result} queryString={queryString} />;
       } catch (e) {
@@ -112,7 +111,12 @@ export const searchRouter = new Elysia()
   .get(
     '/search/preview',
     async ({ query: { queryString, home }, cookie: { lastResult }, set }) => {
-      queryString = decodeURIComponent(queryString);
+      console.log(queryString, 'before');
+      const cleaningRegex = /<\/?span[^>]*>/g;
+      queryString = decodeURIComponent(
+        queryString.replaceAll(cleaningRegex, '')
+      );
+      console.log(queryString, 'after');
       if (queryString === '') {
         return <>{home && <GuideText />}</>;
       }

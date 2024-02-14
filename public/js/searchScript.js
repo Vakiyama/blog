@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
   write();
 
   setInterval(async () => {
+    if (!document.hasFocus) return;
     await clear();
     write();
     placeholderIndex++;

@@ -42,7 +42,7 @@ function LinkList({
     <>
       {links.map(({ href, title, src }, index) => {
         return (
-          <Link href={href} src={src}>
+          <Link href={href} src={src} isHome={true}>
             {index === 0 && queryString ? (
               <span class="highlight-rosewater">
                 {highlightQuery(queryString, title)}{' '}

@@ -61,13 +61,20 @@ export function Link({
   src,
   href,
   children,
+  isHome,
 }: {
   src: string;
   href: string;
   children: JSX.Element;
+  isHome: boolean;
 }) {
   return (
-    <div class="link">
+    <div
+      class="link"
+      hx-trigger="mouseover"
+      hx-get={`/search/preview?queryString=${encodeURI(children.toString())}&home=${isHome}`}
+      hx-target=".guide_textWrapper"
+    >
       <img class="file_icon" src={src} alt="A filetype icon" />
       <a href={href}>{children}</a>
     </div>

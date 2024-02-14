@@ -19,7 +19,6 @@ export const Head = ({ title, css }: { title: string; css: string[] }) => {
       <link rel="stylesheet" href={`/public/css/root.css`} />
       <link rel="stylesheet" href={`/public/css/global.css`} />
       {css.map((path) => {
-        console.log(path);
         return <link rel="stylesheet" href={`/public/css/${path}`} />;
       })}
     </head>

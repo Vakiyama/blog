@@ -45,14 +45,14 @@ export function GuideText() {
 
 function Guide({ showTutorialText = true }: { showTutorialText: boolean }) {
   return (
-    <>
-      <div class="guide telescopeBorder">
-        <div class="guide_textWrapper">{showTutorialText && <GuideText />}</div>
-        <div class="borderHeader guide_borderHeader">
-          <p>Preview</p>
-        </div>
+    <div class="guide telescopeBorder">
+      <div class="borderHeader guide_borderHeader">
+        <p>Preview</p>
       </div>
-    </>
+      <div class="innerWrapper">
+        <div class="guide_textWrapper">{showTutorialText && <GuideText />}</div>
+      </div>
+    </div>
   );
 }
 

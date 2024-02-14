@@ -43,6 +43,17 @@ div {
   width: 42%;
 }
 
+.guide_borderWrapper {
+  z-index: 1;
+  height: 100%;
+}
+
+.innerWrapper {
+  border: 1px;
+  overflow-y: scroll;
+  height: 100%;
+}
+
 .links {
   height: 89.87%;
   display: flex;
@@ -65,8 +76,6 @@ div {
 .guide_textWrapper {
   padding: 20px 40px;
   font-size: 28px;
-  overflow-y: scroll;
-  overflow-x: hidden;
   height: 95%;
   scrollbar-width: none;
 }

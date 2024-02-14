@@ -6,9 +6,7 @@ import { searchRouter } from './routes/searchRouter';
 const PORT = process.env.PORT || 3000;
 
 export const app = new Elysia()
-  .onBeforeHandle(({ request }) => {
-    console.log(request.url);
-  })
+  .onBeforeHandle(({ request }) => { })
   .use(staticPlugin())
   .use(indexRouter)
   .use(blogRouter)

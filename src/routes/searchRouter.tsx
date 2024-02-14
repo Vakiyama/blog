@@ -8,7 +8,6 @@ import path from 'path';
 import { app } from '..';
 
 const highlightQuery = (query: string, text: string): JSX.Element => {
-  console.log(query);
   if (!query) {
     return <>{text}</>;
   }
@@ -117,16 +116,17 @@ export const searchRouter = new Elysia()
   .get(
     '/search/preview',
     async ({ query: { queryString, home }, cookie: { lastResult }, set }) => {
+      queryString = decodeURIComponent(queryString);
       if (queryString === '') {
         return <>{home && <GuideText />}</>;
       }
       const topResult = (await searchBlogs(queryString))[0];
-      if (lastResult.value === topResult.title) {
-        // set.status = 304;
-        // return;
-      }
       if (!topResult) {
-        lastResult.value = '';
+        lastResult.value = queryString;
+        return;
+      }
+      if (lastResult.value === topResult.title) {
+        set.status = 204;
         return;
       }
       if (topResult.title.endsWith('md')) {
@@ -141,8 +141,8 @@ export const searchRouter = new Elysia()
         }
       } else if (topResult.title.endsWith('html')) {
         if (lastResult.value === 'index') {
-          // set.status = 304;
-          // return;
+          set.status = 204;
+          return;
         }
         lastResult.value = 'index';
         return (
@@ -155,7 +155,7 @@ export const searchRouter = new Elysia()
         );
       } else {
         if (lastResult.value === topResult.href) {
-          set.status = 304;
+          set.status = 204;
           return;
         }
         lastResult.value === topResult.href;

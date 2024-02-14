@@ -44,8 +44,9 @@ document.addEventListener('keydown', (ev) => {
   handleCommands(ev);
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.querySelector('.searchInput');
+
   searchInput.value = '';
 
   htmx.ajax('GET', `/search?queryString=&home=${isHome}`, {
@@ -59,17 +60,23 @@ document.addEventListener('DOMContentLoaded', function() {
     htmx
       .ajax(
         'GET',
-        `/search/preview?queryString=${searchInput.value}&home=${isHome}`,
+        `/search/preview?queryString=${encodeURIComponent(searchInput.value)}&home=${isHome}`,
         {
           target: '.guide_textWrapper',
         }
       )
       .then(() => {
-        htmx.ajax('GET', `/search?queryString=${searchInput.value}`, {
-          target: '.links_linkWrapper',
-        });
+        htmx.ajax(
+          'GET',
+          `/search?queryString=${encodeURIComponent(searchInput.value)}`,
+          {
+            target: '.links_linkWrapper',
+          }
+        );
       });
   }
 
   searchInput.addEventListener('input', search);
 });
+
+function highlightSearchInput() { }

@@ -48,6 +48,9 @@ function Guide({ showTutorialText = true }: { showTutorialText: boolean }) {
     <>
       <div class="guide telescopeBorder">
         <div class="guide_textWrapper">{showTutorialText && <GuideText />}</div>
+        <div class="borderHeader guide_borderHeader">
+          <p>Preview</p>
+        </div>
       </div>
     </>
   );
@@ -68,6 +71,9 @@ function Search() {
           hx-trigger='keyup[key=="Enter"] from:input'
           hx-get="/search/redirect-blog"
         />
+        <div class="borderHeader searchHeader">
+          <p>Find Files</p>
+        </div>
       </div>
     </>
   );
@@ -96,6 +102,9 @@ function TelescopeGui({ home }: { home: boolean }) {
       <div class={`leftWrapper`}>
         <div class="links telescopeBorder">
           <div class="links_linkWrapper"></div>
+          <div class="borderHeader linkHeader">
+            <p>Links</p>
+          </div>
         </div>
         <Search />
       </div>
@@ -110,7 +119,7 @@ export function Telescope({ home = true }: { home?: boolean }) {
     <>
       {!home ? (
         <div class="telescope hidden">
-          <TelescopeGui home={home} />;
+          <TelescopeGui home={home} />
         </div>
       ) : (
         <TelescopeGui home={home} />

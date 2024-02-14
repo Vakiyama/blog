@@ -27,6 +27,7 @@ div {
 }
 
 .telescopeBorder {
+  position: relative;
   border: 2px solid var(--blue);
 }
 
@@ -167,4 +168,36 @@ p {
 
 .hidden {
   display: none;
+}
+
+.borderHeader {
+  background-color: var(--base);
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 140px;
+  top: -30px;
+  border-radius: none;
+}
+
+.borderHeader p {
+  text-align: center;
+  font-size: 24px;
+}
+
+.borderHeader.linkHeader {
+  width: 100px;
+}
+
+.borderHeader.searchHeader {
+  top: -15px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.borderHeader.searchHeader p {
+  font-size: 20px;
 }

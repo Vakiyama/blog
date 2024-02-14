@@ -260,9 +260,10 @@ p {
   left: 0;
   bottom: 0;
   width: 200px;
-  margin-left: 200px;
-  margin-bottom: 100px;
+  margin-left: 140px;
+  margin-bottom: 140px;
   padding-left: 20px;
+  font-size: 22px;
 }
 
 .guideText p {

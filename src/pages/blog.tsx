@@ -19,7 +19,10 @@ export const Blog = ({
         </main>
         <div class="blog_guideWrapper telescopeBorder">
           <p>
-            <span class="highlight-command">Shift+S</span> to search
+            <b><span class="highlight-command">Shift+S</span></b> to search
+          </p>
+          <p>
+            <b><span class="highlight-command">Esc</span></b> to exit search
           </p>
         </div>
       </>

@@ -14,16 +14,9 @@ export function GuideText() {
         <span class="highlight-command">
           <b>Shift + S</b>
         </span>{' '}
-        to open this menu.
+        to open this menu anywhere.
       </p>
       <br />
-      <p>
-        Pressing{' '}
-        <span class="highlight-command">
-          <b>Esc</b>
-        </span>{' '}
-        will minimize the search interface when in a blog.
-      </p>
     </div>
   );
 }

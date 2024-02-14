@@ -2,7 +2,7 @@ import { HtmlLayout } from '../components/htmlLayout';
 
 export function GuideText() {
   return (
-    <div>
+    <div class="guideText">
       <br />
       <p>
         Hello, I'm <span class="highlight-rosewater">Vitor</span>.
@@ -12,23 +12,21 @@ export function GuideText() {
       <p>
         Press{' '}
         <span class="highlight-command">
-          <b>p + f</b>
+          <b>Shift + S</b>
         </span>{' '}
         to <span class="highlight-link">search</span> for a blog or link.
       </p>
-      <p>This hotkey will work anywhere on this site.</p>
       <br />
       <p>
-        During a search, you can press{' '}
+        Press{' '}
         <span class="highlight-command">
           <b>Enter</b>
         </span>{' '}
         to go to the currently highlighted blog.
       </p>
       <p>
-        You can also{' '}
         <span class="highlight-command">
-          <b>click</b>
+          <b>Click</b>
         </span>{' '}
         on <span class="highlight-link">results</span> to follow them as normal.
       </p>
@@ -101,10 +99,10 @@ function TelescopeGui({ home }: { home: boolean }) {
     <>
       <div class={`leftWrapper`}>
         <div class="links telescopeBorder">
-          <div class="links_linkWrapper"></div>
           <div class="borderHeader linkHeader">
             <p>Links</p>
           </div>
+          <div class="links_linkWrapper"></div>
         </div>
         <Search />
       </div>

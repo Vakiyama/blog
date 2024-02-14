@@ -1,5 +1,4 @@
 let timeout;
-let commandStack = [];
 
 const isHome = window.location.pathname === '/';
 
@@ -23,19 +22,11 @@ function handleCommands(ev) {
       return;
     }
   }
-
-  if (ev.key === 'p' && commandStack.length === 0) {
-    commandStack.push('p');
-    timeout = setTimeout(() => {
-      commandStack = [];
-    }, 500);
-  }
-  if (ev.key === 'f' && commandStack[0] === 'p') {
+  if (ev.key === 'S') {
     if (!isHome) {
       telescope.classList.remove('hidden');
     }
     setTimeout(() => search.focus(), 50);
-    commandStack = [];
     clearTimeout(timeout);
   }
 }

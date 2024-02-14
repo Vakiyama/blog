@@ -50,8 +50,9 @@ div {
 
 .innerWrapper {
   border: 1px;
-  overflow-y: scroll;
-  height: 100%;
+  height: calc(100% - 15px);
+  margin-top: 15px;
+  overflow-y: hidden;
 }
 
 .links {
@@ -78,10 +79,16 @@ div {
   font-size: 28px;
   height: 95%;
   scrollbar-width: none;
+  overflow-y: scroll;
 }
 
-.guide_textWrapper::-webkit-scrollbar {
-  width: 0;
+::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+* {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
 .highlight-rosewater {
@@ -119,11 +126,13 @@ p {
 }
 
 .links_linkWrapper {
+  overflow-y: scroll;
   height: 100%;
   height: fit-content;
   font-size: 26px;
   margin-left: 6%;
-  margin-top: 5%;
+  margin-top: 14px;
+  padding-top: 5%;
 }
 
 .links_linkWrapper a {
@@ -153,19 +162,19 @@ p {
   top: 2px;
 }
 
-.guide_blogPreview p {
+.guide_textWrapper p {
   font-size: 18px;
 }
 
-.guide_blogPreview h1 {
+.guide_textWrapper h1 {
   font-size: 30px;
 }
 
-.guide_blogPreview h2 {
+.guide_textWrapper h2 {
   font-size: 22px;
 }
 
-.guide_blogPreview h3 {
+.guide_textWrapper h3 {
   font-size: 18px;
 }
 
@@ -193,6 +202,7 @@ p {
   width: 140px;
   top: -30px;
   border-radius: none;
+  z-index: 1;
 }
 
 .borderHeader p {
@@ -243,4 +253,18 @@ p {
 
 .image-wrapper img {
   width: 100%;
+}
+
+.blog_guideWrapper {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  margin-left: 200px;
+  margin-bottom: 100px;
+  padding-left: 20px;
+}
+
+.guideText p {
+  font-size: 28px;
 }

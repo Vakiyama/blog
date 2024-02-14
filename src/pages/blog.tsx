@@ -17,6 +17,11 @@ export const Blog = ({
         <main class="blog">
           <article>{html}</article>
         </main>
+        <div class="blog_guideWrapper telescopeBorder">
+          <p>
+            <span class="highlight-command">Shift+S</span> to search
+          </p>
+        </div>
       </>
     </HtmlLayout>
   );

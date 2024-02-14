@@ -89,9 +89,18 @@ async function searchBlogs(queryString: string) {
     })
   );
   const allLinks = internalLinks.concat(newLinks);
-  const searcher = new FuzzySearch(allLinks, ['title']);
-  const result = searcher.search(queryString);
-  return result;
+  const searcher = new FuzzySearch(
+    allLinks.map((link) => {
+      link.title = link.title.split('-').join(' ');
+      return link;
+    }),
+    ['title']
+  );
+  const result = searcher.search(queryString.split('-').join(' '));
+  return result.map((link) => {
+    link.title = link.title.split(' ').join('-');
+    return link;
+  });
 }
 
 export const searchRouter = new Elysia()
@@ -134,7 +143,7 @@ export const searchRouter = new Elysia()
           const markdown = Bun.file(`blogs/${topResult.title}`);
           const html = parseToHtml(await markdown.text());
           lastResult.value = topResult.title;
-          return <div class="guide_blogPreview">{html}</div>;
+          return <>{html}</>;
         } catch (e) {
           console.log(e);
           throw new InternalServerError();

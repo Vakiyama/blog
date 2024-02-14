@@ -115,13 +115,9 @@ function TelescopeGui({ home }: { home: boolean }) {
 export function Telescope({ home = true }: { home?: boolean }) {
   return (
     <>
-      {!home ? (
-        <div class="telescope hidden">
-          <TelescopeGui home={home} />
-        </div>
-      ) : (
+      <div class="telescope hidden">
         <TelescopeGui home={home} />
-      )}
+      </div>
     </>
   );
 }
@@ -130,8 +126,11 @@ export const Home = () => {
   return (
     <HtmlLayout css={['home.css']} title="Home">
       <>
+        <Telescope home={false} />
         <main>
-          <Telescope />
+          <div class="intro">
+            <h1 class="intro_text">Press Shift + S to Search</h1>
+          </div>
         </main>
       </>
     </HtmlLayout>

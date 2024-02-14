@@ -268,3 +268,22 @@ p {
 .guideText p {
   font-size: 28px;
 }
+
+.intro {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro_text {
+  margin: 0 auto;
+  width: fit-content;
+  font-size: 48px;
+  position: relative;
+  bottom: 60px;
+}

@@ -2,7 +2,7 @@ let timeout;
 
 const isHome = window.location.pathname === '/';
 
-const telescope = isHome ? null : document.querySelector('.telescope');
+const telescope = document.querySelector('.telescope');
 
 function handleCommands(ev) {
   if (timeout) clearTimeout(timeout);
@@ -23,9 +23,7 @@ function handleCommands(ev) {
     }
   }
   if (ev.key === 'S') {
-    if (!isHome) {
-      telescope.classList.remove('hidden');
-    }
+    telescope.classList.remove('hidden');
     setTimeout(() => search.focus(), 50);
     clearTimeout(timeout);
   }

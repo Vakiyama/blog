@@ -1,4 +1,5 @@
 import { EOL } from 'os';
+import getYoutubeID from 'get-youtube-id';
 
 type Tag =
   | 'h1'
@@ -38,10 +39,35 @@ function parseLink(htmlLine: string[], i: number, line: string) {
       const charLink = line[index];
       if (charLink !== ')') continue;
       const link = line.slice(titleEndIndex + 1, index);
-      console.log(`<a href="${link}">${title}</a>`);
+      // here, we can determine if it's an image link or not
+      if (
+        link.endsWith('png') ||
+        link.endsWith('svg') ||
+        link.endsWith('jpg') ||
+        link.endsWith('jpeg')
+      ) {
+        htmlLine.push(
+          `<div class="image-wrapper">
+            <img src="${link}" alt="${title}"/>
+            <p class="highlight-subtext">Source: <a href="${link}">${link}</a></p>
+          </div>`
+        );
+        break;
+      }
+      if (link.includes('youtube.com/watch?') || link.includes('youtu.be/')) {
+        const id = getYoutubeID(link, { fuzzy: true });
+        if (id) {
+          htmlLine.push(`<a href="${link}">${title}</a>`);
+          htmlLine.push(
+            `<div class="video-container"><iframe width="100%" height="auto" src="https://www.youtube.com/embed/${id}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`
+          );
+          break;
+        }
+      }
       htmlLine.push(`<a href="${link}">${title}</a>`);
-      return index;
+      break;
     }
+    return index;
   }
   throw new Error('invalid markdown link format');
 }

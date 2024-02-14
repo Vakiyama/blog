@@ -15,7 +15,7 @@ markdown, but it's been great so far.
 ## Elysia
 
 I heard about elysia in the video that inspired this tech stack,
-[beth stack](https://www.youtube.com/watch?v=cpzowDDJj24).
+[beth stack.](https://www.youtube.com/watch?v=cpzowDDJj24)
 
 It seems to be designed to be specifically used with Bun, which is great,
 although I'm not 100% sure what we're gaining using Bun versus Node. Maybe
@@ -33,6 +33,8 @@ background doing mostly React front end stuff, so using it in a project
 like this is fantastic.
 
 ### A small aside on templating...
+
+[EJS](https://miro.medium.com/v2/resize:fit:1400/1*5xR5P6dzu4LpyMaR2QMphA.jpeg)
 
 I've been using a lot of [EJS](https://ejs.co/) in school projects, and
 I will say, I'm not a huge fan. Not having type information in my

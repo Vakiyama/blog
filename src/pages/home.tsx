@@ -90,7 +90,7 @@ export function Link({
 }) {
   return (
     <div class="link">
-      <img class="file_icon" src={src} />
+      <img class="file_icon" src={src} alt="A filetype icon" />
       <a href={href}>{children}</a>
     </div>
   );

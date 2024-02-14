@@ -56,20 +56,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function search() {
     if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      htmx.ajax('GET', `/search?queryString=${searchInput.value}`, {
-        target: '.links_linkWrapper',
+    htmx
+      .ajax(
+        'GET',
+        `/search/preview?queryString=${searchInput.value}&home=${isHome}`,
+        {
+          target: '.guide_textWrapper',
+        }
+      )
+      .then(() => {
+        htmx.ajax('GET', `/search?queryString=${searchInput.value}`, {
+          target: '.links_linkWrapper',
+        });
       });
-      setTimeout(() => {
-        htmx.ajax(
-          'GET',
-          `/search/preview?queryString=${searchInput.value}&home=${isHome}`,
-          {
-            target: '.guide_textWrapper',
-          }
-        );
-      }, 50); // space
-    }, 50); // debounce
   }
 
   searchInput.addEventListener('input', search);

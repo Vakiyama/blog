@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(() => {
         htmx.ajax(
           'GET',
-          `/search?queryString=${encodeURIComponent(searchInput.value)}`,
+          `/search?queryString=${encodeURIComponent(searchInput.value)}&home=${isHome}`,
           {
             target: '.links_linkWrapper',
           }

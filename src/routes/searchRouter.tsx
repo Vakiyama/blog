@@ -2,30 +2,9 @@ import { Elysia, t, InternalServerError } from 'elysia';
 import { html } from '@elysiajs/html';
 import { GuideText, Link } from '../pages/home';
 import { readdir } from 'node:fs/promises';
-import FuzzySearch from 'fuzzy-search';
+import fuzzy from 'fuzzy';
 import { parseToHtml } from '../parser/markdownToHtml';
 import path from 'path';
-import { app } from '..';
-
-const highlightQuery = (query: string, text: string): JSX.Element => {
-  if (!query) {
-    return <>{text}</>;
-  }
-
-  const splitText = text.split(new RegExp(`(${query})`, 'gi'));
-
-  return (
-    <>
-      {splitText.map((chunk) =>
-        chunk.toLowerCase() === query.toLowerCase() ? (
-          <span class="highlight-link">{chunk}</span>
-        ) : (
-          <>{chunk}</>
-        )
-      )}
-    </>
-  );
-};
 
 function LinkList({
   links,
@@ -40,15 +19,13 @@ function LinkList({
 
   return (
     <>
-      {links.map(({ href, title, src }, index) => {
+      {links.map(({ href, src, formated }, index) => {
         return (
           <Link href={href} src={src} isHome={true}>
             {index === 0 && queryString ? (
-              <span class="highlight-rosewater">
-                {highlightQuery(queryString, title)}{' '}
-              </span>
+              <span class="highlight-rosewater">{formated && formated} </span>
             ) : (
-              highlightQuery(queryString, title)
+              <>{formated ? formated : null}</>
             )}
           </Link>
         );
@@ -63,6 +40,7 @@ type InternalLink = {
   title: string;
   href: string;
   src: string;
+  formated?: string;
 };
 const internalLinks: InternalLink[] = [
   {
@@ -80,7 +58,7 @@ const internalLinks: InternalLink[] = [
 const blogPath = path.join(__dirname, '../../blogs');
 const blogs = await readdir(blogPath);
 
-async function searchBlogs(queryString: string) {
+function searchBlogs(queryString: string) {
   const newLinks = blogs.map(
     (blog): InternalLink => ({
       title: blog,
@@ -89,27 +67,35 @@ async function searchBlogs(queryString: string) {
     })
   );
   const allLinks = internalLinks.concat(newLinks);
-  const searcher = new FuzzySearch(
-    allLinks.map((link) => {
-      link.title = link.title.split('-').join(' ');
-      return link;
-    }),
-    ['title']
-  );
-  const result = searcher.search(queryString.split('-').join(' '));
-  return result.map((link) => {
-    link.title = link.title.split(' ').join('-');
-    return link;
+  const options = {
+    pre: '<span class="highlight-link">',
+    post: '</span>',
+    extract: (el: InternalLink) => el.title,
+  };
+  const results = fuzzy.filter(queryString, allLinks, options).map((result) => {
+    result.original.formated = result.string;
+    return result.original;
   });
+  console.log(results, 'RESULTS!!', queryString);
+
+  console.log(results.length);
+  return results;
 }
 
 export const searchRouter = new Elysia()
   .use(html())
   .get(
     '/search',
-    async ({ query: { queryString } }) => {
+    ({ query: { queryString, home } }) => {
       try {
-        const result = await searchBlogs(queryString);
+        const result = searchBlogs(queryString);
+        if (home) {
+          const homeIndex = result.findIndex((result) => result.title === 'index.html')
+          result.splice(
+            homeIndex,
+            homeIndex > -1 ? 1 : 0
+          );
+        }
         return <LinkList links={result} queryString={queryString} />;
       } catch (e) {
         console.log(e);
@@ -119,6 +105,7 @@ export const searchRouter = new Elysia()
     {
       query: t.Object({
         queryString: t.String(),
+        home: t.BooleanString(),
       }),
     }
   )
@@ -129,7 +116,7 @@ export const searchRouter = new Elysia()
       if (queryString === '') {
         return <>{home && <GuideText />}</>;
       }
-      const topResult = (await searchBlogs(queryString))[0];
+      const topResult = searchBlogs(queryString)[0];
       if (!topResult) {
         lastResult.value = queryString;
         return;
@@ -180,9 +167,9 @@ export const searchRouter = new Elysia()
   )
   .get(
     '/search/redirect-blog',
-    async ({ set, query: { queryString } }) => {
+    ({ set, query: { queryString } }) => {
       try {
-        const topResult = (await searchBlogs(queryString))[0];
+        const topResult = searchBlogs(queryString)[0];
         if (!topResult) {
           return;
         }

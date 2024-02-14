@@ -32,6 +32,13 @@ export function GuideText() {
         </span>{' '}
         on <span class="highlight-link">results</span> to follow them as normal.
       </p>
+      <p>
+        Pressing{' '}
+        <span class="highlight-command">
+          <b>Esc</b>
+        </span>{' '}
+        will minimize the search interface when in a blog.
+      </p>
     </div>
   );
 }

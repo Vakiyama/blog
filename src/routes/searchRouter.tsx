@@ -67,14 +67,14 @@ type InternalLink = {
 };
 const internalLinks: InternalLink[] = [
   {
-    title: 'github/Vakiyama',
-    href: 'https://github.com/Vakiyama',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg',
-  },
-  {
     title: 'index.html',
     href: '/',
     src: 'https://www.svgrepo.com/show/478664/html-tag.svg',
+  },
+  {
+    title: 'github/Vakiyama',
+    href: 'https://github.com/Vakiyama',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg',
   },
 ];
 
@@ -89,7 +89,7 @@ async function searchBlogs(queryString: string) {
       src: 'https://www.svgrepo.com/show/368813/markdown.svg',
     })
   );
-  const allLinks = newLinks.concat(internalLinks);
+  const allLinks = internalLinks.concat(newLinks);
   const searcher = new FuzzySearch(allLinks, ['title']);
   const result = searcher.search(queryString);
   return result;

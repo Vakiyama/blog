@@ -116,24 +116,35 @@ export const searchRouter = new Elysia()
   )
   .get(
     '/search/preview',
-    async ({ query: { queryString, home } }) => {
+    async ({ query: { queryString, home }, cookie: { lastResult }, set }) => {
       if (queryString === '') {
         return <>{home && <GuideText />}</>;
       }
       const topResult = (await searchBlogs(queryString))[0];
+      if (lastResult.value === topResult.title) {
+        // set.status = 304;
+        // return;
+      }
       if (!topResult) {
+        lastResult.value = '';
         return;
       }
       if (topResult.title.endsWith('md')) {
         try {
           const markdown = Bun.file(`blogs/${topResult.title}`);
           const html = parseToHtml(await markdown.text());
+          lastResult.value = topResult.title;
           return <div class="guide_blogPreview">{html}</div>;
         } catch (e) {
           console.log(e);
           throw new InternalServerError();
         }
       } else if (topResult.title.endsWith('html')) {
+        if (lastResult.value === 'index') {
+          // set.status = 304;
+          // return;
+        }
+        lastResult.value = 'index';
         return (
           <p>
             The home page,{' '}
@@ -143,6 +154,11 @@ export const searchRouter = new Elysia()
           </p>
         );
       } else {
+        if (lastResult.value === topResult.href) {
+          set.status = 304;
+          return;
+        }
+        lastResult.value === topResult.href;
         return (
           <>
             <p>External Link to: </p>

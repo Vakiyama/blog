@@ -14,22 +14,9 @@ export function GuideText() {
         <span class="highlight-command">
           <b>Shift + S</b>
         </span>{' '}
-        to <span class="highlight-link">search</span> for a blog or link.
+        to open this menu.
       </p>
       <br />
-      <p>
-        Press{' '}
-        <span class="highlight-command">
-          <b>Enter</b>
-        </span>{' '}
-        to go to the currently highlighted blog.
-      </p>
-      <p>
-        <span class="highlight-command">
-          <b>Click</b>
-        </span>{' '}
-        on <span class="highlight-link">results</span> to follow them as normal.
-      </p>
       <p>
         Pressing{' '}
         <span class="highlight-command">
@@ -63,14 +50,14 @@ function Search() {
           class="searchInput"
           type="search"
           name="queryString"
-          placeholder="Search"
+          placeholder="Search for an article..."
           autocomplete="false"
           autofocus="true"
           hx-trigger='keyup[key=="Enter"] from:input'
           hx-get="/search/redirect-blog"
         />
         <div class="borderHeader searchHeader">
-          <p>Find Files</p>
+          <p>Search</p>
         </div>
       </div>
     </>
@@ -126,10 +113,12 @@ export const Home = () => {
   return (
     <HtmlLayout css={['home.css']} title="Home">
       <>
-        <Telescope home={false} />
+        <Telescope home={true} />
         <main>
           <div class="intro">
-            <h1 class="intro_text">Press Shift + S to Search</h1>
+            <h1 class="intro_text">
+              Press <span class="highlight-command">Shift + S</span> to Search
+            </h1>
           </div>
         </main>
       </>

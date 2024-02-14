@@ -154,14 +154,7 @@ export const searchRouter = new Elysia()
           return;
         }
         lastResult.value = 'index';
-        return (
-          <p>
-            The home page,{' '}
-            <span class="highlight-command">
-              @ <a>{app.server?.url}</a>
-            </span>
-          </p>
-        );
+        return <GuideText />;
       } else {
         if (lastResult.value === topResult.href) {
           set.status = 204;

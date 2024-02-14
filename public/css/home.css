@@ -156,6 +156,10 @@ p {
   font-size: 22px;
 }
 
+.guide_blogPreview h3 {
+  font-size: 18px;
+}
+
 .telescope {
   background-color: var(--base);
   position: fixed;

@@ -70,4 +70,3 @@ reading diff (people probably won't read)
 Add scrollbar
 
 Max:
-

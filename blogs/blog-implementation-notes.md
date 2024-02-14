@@ -45,4 +45,3 @@ it should be a database call. Look into turso and set it up there, and
 then I just need a web portal to upload, edit and delete blogs.
 
 Maybe I can open blog creation to be public or something? idk.
-

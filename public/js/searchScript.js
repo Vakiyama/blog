@@ -1,14 +1,45 @@
 let timeout;
 
-const isHome = window.location.pathname === '/';
+const isHome = location.pathname === '/';
+const hasUsedBefore = localStorage.getItem('used');
+function isTouchDevice() {
+  return (
+    'ontouchstart' in window ||
+    navigator.maxTouchPoints > 0 ||
+    navigator.msMaxTouchPoints > 0
+  );
+}
 
 const telescope = document.querySelector('.telescope');
+
+const search = document.querySelector('.searchInput');
+
+function openMenu() {
+  telescope.classList.remove('hidden');
+  const introDiv = document.querySelector('.intro');
+  if (introDiv) introDiv.remove();
+  if (!isHome) {
+    const blog = document.querySelector('.blog');
+    blog.classList.add('stopScroll');
+  }
+  setTimeout(() => search.focus(), 50);
+  clearTimeout(timeout);
+}
+
+function closeMenu() {
+  const blog = document.querySelector('.blog');
+  blog.classList.remove('stopScroll');
+
+  const searchButton = document.querySelector('.searchOpen');
+  searchButton.classList.remove('hidden');
+
+  telescope.classList.add('hidden');
+}
 
 function handleCommands(ev) {
   if (timeout) clearTimeout(timeout);
 
   const focused = document.activeElement;
-  const search = document.querySelector('.searchInput');
   if (focused === search) {
     if (ev.key === 'Escape') return search.blur();
     return;
@@ -18,14 +49,15 @@ function handleCommands(ev) {
       !isHome &&
       !telescope.classList.contains('hidden')
     ) {
-      telescope.classList.add('hidden');
+      closeMenu();
       return;
     }
   }
   if (ev.key === 'S') {
-    telescope.classList.remove('hidden');
-    setTimeout(() => search.focus(), 50);
-    clearTimeout(timeout);
+    if (!hasUsedBefore) {
+      localStorage.setItem('used', 'true');
+    }
+    openMenu(search);
   }
 }
 
@@ -53,6 +85,10 @@ function sleep(amt) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.querySelector('.searchInput');
+
+  if ((hasUsedBefore && isHome) || (isTouchDevice() && isHome)) {
+    openMenu();
+  }
 
   async function clear() {
     for (let i = 0; i < searchPlaceholders[placeholderIndex].length; i++) {
@@ -111,4 +147,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   searchInput.addEventListener('input', search);
+  const searchButton = document.querySelector('.searchOpen');
+  searchButton.addEventListener('click', () => {
+    if (telescope.classList.contains('hidden')) {
+      openMenu();
+    } else {
+      closeMenu();
+    }
+  });
 });

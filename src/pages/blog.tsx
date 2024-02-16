@@ -17,19 +17,11 @@ export const Blog = ({
         <main class="blog">
           <article>{html}</article>
         </main>
-        <div class="blog_guideWrapper telescopeBorder">
-          <p>
-            <b>
-              <span class="highlight-command">Shift+S</span>
-            </b>{' '}
-            to search
-          </p>
-          <p>
-            <b>
-              <span class="highlight-command">Esc</span>
-            </b>{' '}
-            to exit search
-          </p>
+        <div class="searchOpen telescopeBorder">
+          <img
+            src="https://www.svgrepo.com/show/532555/search.svg"
+            alt="search button"
+          />
         </div>
       </>
     </HtmlLayout>

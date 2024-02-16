@@ -20,6 +20,8 @@ main {
 
 main.blog {
   max-width: 840px;
+  width: calc(100% - 80px);
+  padding: 40px;
 }
 
 div {
@@ -29,6 +31,16 @@ div {
 .telescopeBorder {
   position: relative;
   border: 2px solid var(--blue);
+}
+
+.telescope {
+  background-color: var(--base);
+  position: fixed;
+  max-width: 1640px;
+  height: 790px;
+  width: calc(100% - 40px);
+  display: flex;
+  z-index: 1;
 }
 
 .leftWrapper {
@@ -178,19 +190,8 @@ p {
   font-size: 18px;
 }
 
-.telescope {
-  background-color: var(--base);
-  position: fixed;
-  max-width: 1640px;
-  max-height: 790px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  z-index: 1;
-}
-
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .borderHeader {
@@ -200,7 +201,8 @@ p {
   right: 0;
   margin: 0 auto;
   width: 140px;
-  top: -30px;
+  top: -10px;
+  height: 20px;
   border-radius: none;
   z-index: 1;
 }
@@ -210,7 +212,7 @@ p {
   font-size: 24px;
   margin: 8px 0;
   position: relative;
-  top: 4px;
+  bottom: 14px;
 }
 
 .borderHeader.linkHeader {
@@ -221,12 +223,15 @@ p {
   top: -12px;
   height: 20px;
   display: flex;
+  width: 120px;
   align-items: center;
   justify-content: center;
 }
 
 .borderHeader.searchHeader p {
   font-size: 24px;
+  position: relative;
+  top: 2px;
 }
 
 .video-container {
@@ -255,15 +260,25 @@ p {
   width: 100%;
 }
 
-.blog_guideWrapper {
+.searchOpen {
   position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 200px;
-  margin-left: 140px;
-  margin-bottom: 140px;
-  padding-left: 20px;
+  right: 20px;
+  bottom: 20px;
+  width: 40px;
+  height: 40px;
   font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  background-color: var(--base);
+  z-index: 1;
+}
+
+.searchOpen img {
+  width: 100%;
+  filter: invert();
+  display: block;
 }
 
 .guideText p {
@@ -287,4 +302,48 @@ p {
   font-size: 48px;
   position: relative;
   bottom: 60px;
+}
+
+.stopScroll {
+  overflow: hidden;
+}
+
+@media screen and (max-height: 800px) {
+  .telescope {
+    height: 90dvh;
+    top: 20px;
+    font-size: 20px;
+  }
+
+  .search {
+    min-height: 60px;
+    margin-top: 10px;
+  }
+
+  .borderHeader {
+    display: none;
+  }
+
+  .borderHeader.searchHeader {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .guide {
+    display: none;
+  }
+
+  .links_linkWrapper {
+    font-size: 20px;
+  }
+
+  .searchInput {
+    font-size: 20px;
+  }
+
+  .leftWrapper {
+    width: 100%;
+    margin-right: 0;
+  }
 }

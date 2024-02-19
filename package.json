@@ -10,7 +10,8 @@
     "@elysiajs/static": "^0.8.1",
     "elysia": "latest",
     "fuzzy": "^0.1.3",
-    "get-youtube-id": "^1.0.1"
+    "get-youtube-id": "^1.0.1",
+    "marked": "^12.0.0"
   },
   "devDependencies": {
     "bun-types": "latest"

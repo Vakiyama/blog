@@ -56,3 +56,8 @@ h6 {
 .blog p {
   font-size: 18px;
 }
+
+code {
+  background-color: var(--surface0);
+  color: var(--mauve);
+}

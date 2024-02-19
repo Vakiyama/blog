@@ -3,8 +3,8 @@ import { html } from '@elysiajs/html';
 import { GuideText, Link } from '../pages/home';
 import { readdir } from 'node:fs/promises';
 import fuzzy from 'fuzzy';
-import { parseToHtml } from '../parser/markdownToHtml';
 import path from 'path';
+import { marked } from 'marked';
 
 function LinkList({
   links,
@@ -130,7 +130,7 @@ export const searchRouter = new Elysia()
       if (topResult.title.endsWith('md')) {
         try {
           const markdown = Bun.file(`blogs/${topResult.title}`);
-          const html = parseToHtml(await markdown.text());
+          const html = marked.parse(await markdown.text());
           lastResult.value = topResult.title;
           return <>{html}</>;
         } catch (e) {

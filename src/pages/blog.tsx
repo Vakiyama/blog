@@ -1,6 +1,7 @@
 import { parseToHtml } from '../parser/markdownToHtml';
 import { HtmlLayout } from '../components/htmlLayout';
 import { Telescope } from './home';
+import { marked } from 'marked';
 
 export const Blog = ({
   markdown,
@@ -9,7 +10,7 @@ export const Blog = ({
   markdown: string;
   blogName: string;
 }) => {
-  const html = parseToHtml(markdown);
+  const html = marked.parse(markdown);
   return (
     <HtmlLayout css={['home.css']} title={blogName}>
       <>
@@ -21,6 +22,7 @@ export const Blog = ({
             alt="search button"
           />
         </div>
+        <script src="/public/js/blogScript.js"></script>
       </>
     </HtmlLayout>
   );

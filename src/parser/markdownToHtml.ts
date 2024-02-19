@@ -12,10 +12,12 @@ type Tag =
   | 'b'
   | 'p'
   | 'e'
-  | 'escape';
-type Stack = Tag[];
+  | 'escape'
+  | 'code'
+  | 'li'
+  | 'ul';
 
-function parseTitle(htmlLine: string[], i: number, line: string, stack: Stack) {
+function parseTitle(htmlLine: string[], i: number, line: string, stack: Tag[]) {
   if (i !== 0) return i;
   // jump forward for each consecutive #, stopping at 6, add h(n#) to the stack
   for (let index = i + 1; ; index++) {
@@ -71,11 +73,21 @@ function parseLink(htmlLine: string[], i: number, line: string) {
   throw new Error('invalid markdown link format');
 }
 
-function removeFromStack(stack: Stack, tag: Tag) {
+function parseList(htmlLine: string[], line: string) {
+  htmlLine.push('<ul>');
+  const listItems = line
+    .split(EOL)
+    .map((line) => '<li>' + line.slice(1, line.length) + '</li>');
+  htmlLine.push(listItems.join(''));
+  htmlLine.push('</ul>');
+  return line.length - 1;
+}
+
+function removeFromStack(stack: Tag[], tag: Tag) {
   stack.reverse().splice(stack.indexOf(tag), 1).reverse(); // remove from stack
 }
 
-function hasTag(stack: Stack) {
+function hasTag(stack: Tag[]) {
   for (const tag of stack) {
     for (let i = 0; i < 6; i++) {
       if (tag === `h${i + 1}`) return i + 1;
@@ -84,7 +96,17 @@ function hasTag(stack: Stack) {
   return false;
 }
 
-function parseLine(line: string, stack: Stack): string {
+function addTag(htmlLine: string[], stack: Tag[], tag: Tag) {
+  if (stack.includes(tag)) {
+    removeFromStack(stack, tag);
+    htmlLine.push(`</${tag}>`);
+    return;
+  }
+  stack.push(tag);
+  htmlLine.push(`<${tag}>`);
+}
+
+function parseLine(line: string, stack: Tag[]): string {
   const htmlLine: string[] = [];
   for (let i = 0; i < line.length; i++) {
     const char = line[i];
@@ -105,29 +127,24 @@ function parseLine(line: string, stack: Stack): string {
         break;
       case '*': // this will always be 2 '*', so we can increment i and treat it as one char
         i++;
-        if (stack.includes('b')) {
-          removeFromStack(stack, 'b');
-          htmlLine.push('</b>');
-          break;
-        }
-        stack.push('b');
-        htmlLine.push('<b>');
+        addTag(htmlLine, stack, 'b');
         break;
       case '_':
-        if (stack.includes('i')) {
-          removeFromStack(stack, 'i');
-          htmlLine.push('</i>');
-          break;
-        }
-        stack.push('i');
-        htmlLine.push('<i>');
+        addTag(htmlLine, stack, 'i');
+        break;
+      case '`':
+        if (line[i + 1] === '`') i += 2;
+        addTag(htmlLine, stack, 'code');
         break;
       case '\\':
         stack.push('escape');
         break;
-      //
       case '[':
         i = parseLink(htmlLine, i, line);
+        break;
+      case '-':
+        if (i !== 0) break;
+        i = parseList(htmlLine, line);
         break;
       default:
         htmlLine.push(char);
@@ -150,7 +167,7 @@ function parseLine(line: string, stack: Stack): string {
 export function parseToHtml(markdown: string) {
   const markdownLines = markdown.split(EOL + EOL);
   const htmlLines: string[] = [];
-  let stack: Stack = [];
+  let stack: Tag[] = [];
   for (const line of markdownLines) {
     const htmlLine = parseLine(line, stack);
     htmlLines.push(htmlLine);

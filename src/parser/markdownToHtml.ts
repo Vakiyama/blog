@@ -49,7 +49,6 @@ function parseLink(htmlLine: string[], i: number, line: string) {
         htmlLine.push(
           `<div class="image-wrapper">
             <img src="${link}" alt="${title}"/>
-            <p class="highlight-subtext">Source: <a href="${link}">${link}</a></p>
           </div>`
         );
         break;
@@ -57,14 +56,14 @@ function parseLink(htmlLine: string[], i: number, line: string) {
       if (link.includes('youtube.com/watch?') || link.includes('youtu.be/')) {
         const id = getYoutubeID(link, { fuzzy: true });
         if (id) {
-          htmlLine.push(`<a href="${link}">${title}</a>`);
+          htmlLine.push(`<a href="${link}" target="_blank">${title} ⬈</a>`);
           htmlLine.push(
             `<div class="video-container"><iframe width="100%" height="auto" src="https://www.youtube.com/embed/${id}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`
           );
           break;
         }
       }
-      htmlLine.push(`<a href="${link}">${title}</a>`);
+      htmlLine.push(`<a href="${link}" target="_blank">${title} ⬈</a>`);
       break;
     }
     return index;

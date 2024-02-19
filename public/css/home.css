@@ -2,7 +2,6 @@ body {
   display: flex;
   position: relative;
   flex-direction: column;
-  height: 100vh;
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -12,25 +11,23 @@ body {
 
 main {
   max-width: 1640px;
-  max-height: 790px;
-  height: 100%;
-
   display: flex;
+  flex-direction: column;
 }
 
 main.blog {
   max-width: 840px;
   width: calc(100% - 80px);
-  padding: 40px;
-}
-
-div {
-  border-radius: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 40px;
+  position: relative;
 }
 
 .telescopeBorder {
   position: relative;
   border: 2px solid var(--blue);
+  border-radius: 10px;
 }
 
 .telescope {
@@ -41,6 +38,11 @@ div {
   width: calc(100% - 40px);
   display: flex;
   z-index: 1;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 12px;
 }
 
 .leftWrapper {
@@ -252,12 +254,17 @@ p {
   color: var(--subtext0);
 }
 
+.image-wrapper {
+  width: 100%;
+}
+
 .image-wrapper p {
   font-size: 14px;
 }
 
 .image-wrapper img {
   width: 100%;
+  display: block;
 }
 
 .searchOpen {
@@ -275,10 +282,18 @@ p {
   z-index: 1;
 }
 
+.searchOpen:hover {
+  cursor: pointer;
+}
+
 .searchOpen img {
   width: 100%;
   filter: invert();
   display: block;
+}
+
+.searchOpen img:hover {
+  opacity: 0.7;
 }
 
 .guideText p {
@@ -311,7 +326,6 @@ p {
 @media screen and (max-height: 800px) {
   .telescope {
     height: 90dvh;
-    top: 20px;
     font-size: 20px;
   }
 
@@ -345,5 +359,11 @@ p {
   .leftWrapper {
     width: 100%;
     margin-right: 0;
+  }
+
+  main.blog {
+    width: calc(100% - 24px);
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }

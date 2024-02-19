@@ -14,9 +14,7 @@ export const Blog = ({
     <HtmlLayout css={['home.css']} title={blogName}>
       <>
         <Telescope home={false} />
-        <main class="blog">
-          <article>{html}</article>
-        </main>
+        <main class="blog">{html}</main>
         <div class="searchOpen telescopeBorder">
           <img
             src="https://www.svgrepo.com/show/532555/search.svg"

@@ -111,12 +111,10 @@ export const searchRouter = new Elysia()
   .get(
     '/search/preview',
     async ({ query: { queryString, home }, cookie: { lastResult }, set }) => {
-      console.log(queryString, 'before');
       const cleaningRegex = /<\/?span[^>]*>/g;
       queryString = decodeURIComponent(
         queryString.replaceAll(cleaningRegex, '')
       );
-      console.log(queryString, 'after');
       if (queryString === '') {
         return <>{home && <GuideText />}</>;
       }

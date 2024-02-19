@@ -1,5 +1,3 @@
-let timeout;
-
 const isHome = location.pathname === '/';
 const hasUsedBefore = localStorage.getItem('used');
 function isTouchDevice() {
@@ -11,7 +9,6 @@ function isTouchDevice() {
 }
 
 const telescope = document.querySelector('.telescope');
-
 const search = document.querySelector('.searchInput');
 
 function openMenu() {
@@ -19,17 +16,13 @@ function openMenu() {
   const introDiv = document.querySelector('.intro');
   if (introDiv) introDiv.remove();
   if (!isHome) {
-    const blog = document.querySelector('.blog');
-    blog.classList.add('stopScroll');
+    document.body.classList.add('stopScroll');
   }
   setTimeout(() => search.focus(), 50);
-  clearTimeout(timeout);
 }
 
 function closeMenu() {
-  const blog = document.querySelector('.blog');
-  blog.classList.remove('stopScroll');
-
+  document.body.classList.remove('stopScroll');
   const searchButton = document.querySelector('.searchOpen');
   searchButton.classList.remove('hidden');
 
@@ -37,8 +30,6 @@ function closeMenu() {
 }
 
 function handleCommands(ev) {
-  if (timeout) clearTimeout(timeout);
-
   const focused = document.activeElement;
   if (focused === search) {
     if (ev.key === 'Escape') return search.blur();
@@ -102,8 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < searchPlaceholders[placeholderIndex].length; i++) {
       const placeholderText = searchPlaceholders[placeholderIndex];
       await sleep(20 + Math.floor(Math.random() * 220));
-      searchInput.placeholder = `Search for ${placeholderText.slice(0, 1 + i)}${i !== placeholderText.length - 1 ? '|' : ''
-        }`;
+      const cursor = i !== placeholderText.length - 1 ? '|' : '';
+      searchInput.placeholder = `Search for ${placeholderText.slice(0, 1 + i)}${cursor}`;
     }
   }
 
@@ -123,10 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
     target: '.links_linkWrapper',
   });
 
-  let timeout;
+  let searchTimeout;
 
   function search() {
-    if (timeout) clearTimeout(timeout);
+    if (searchTimeout) clearTimeout(searchTimeout);
     htmx
       .ajax(
         'GET',

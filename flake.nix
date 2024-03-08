@@ -14,6 +14,9 @@
                 buildInputs = [
                     bun
                     nodejs_20
+                    turso-cli
+                    sqlite
+                    sqld
                 ];
             };
         }

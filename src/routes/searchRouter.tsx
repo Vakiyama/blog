@@ -1,10 +1,9 @@
 import { Elysia, t, InternalServerError } from 'elysia';
 import { html } from '@elysiajs/html';
 import { GuideText, Link } from '../pages/home';
-import { readdir } from 'node:fs/promises';
 import fuzzy from 'fuzzy';
-import path from 'path';
 import { marked } from 'marked';
+import { getBlogs } from '../database/tables/Blog';
 
 function LinkList({
   links,
@@ -40,6 +39,7 @@ type InternalLink = {
   title: string;
   href: string;
   src: string;
+  body?: string;
   formated?: string;
 };
 const internalLinks: InternalLink[] = [
@@ -55,14 +55,14 @@ const internalLinks: InternalLink[] = [
   },
 ];
 
-const blogPath = path.join(__dirname, '../../blogs');
-const blogs = await readdir(blogPath);
+const blogs = await getBlogs();
 
 function searchBlogs(queryString: string) {
   const newLinks = blogs.map(
     (blog): InternalLink => ({
-      title: blog,
-      href: `/blogs/${blog}`,
+      title: blog.title,
+      href: `/blogs/${blog.id}`,
+      body: blog.body,
       src: 'https://www.svgrepo.com/show/368813/markdown.svg',
     })
   );
@@ -116,6 +116,7 @@ export const searchRouter = new Elysia()
         queryString.replaceAll(cleaningRegex, '')
       );
       if (queryString === '') {
+        lastResult.value = 'guide';
         return <>{home && <GuideText />}</>;
       }
       const topResult = searchBlogs(queryString)[0];
@@ -129,8 +130,9 @@ export const searchRouter = new Elysia()
       }
       if (topResult.title.endsWith('md')) {
         try {
-          const markdown = Bun.file(`blogs/${topResult.title}`);
-          const html = marked.parse(await markdown.text());
+          if (topResult.body === undefined)
+            throw new Error('Missing body in article');
+          const html = marked.parse(topResult.body);
           lastResult.value = topResult.title;
           return <>{html}</>;
         } catch (e) {
@@ -149,7 +151,7 @@ export const searchRouter = new Elysia()
           set.status = 204;
           return;
         }
-        lastResult.value === topResult.href;
+        lastResult.value = topResult.href;
         return (
           <>
             <p>External Link to: </p>

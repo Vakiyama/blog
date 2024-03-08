@@ -111,7 +111,7 @@ export function Telescope({ home = true }: { home?: boolean }) {
 
 export const Home = () => {
   return (
-    <HtmlLayout css={['home.css']} title="Home">
+    <HtmlLayout css={['home.css']} title="Vitor Akiyama">
       <>
         <Telescope home={true} />
         <main>

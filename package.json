@@ -3,7 +3,9 @@
   "version": "1.0.50",
   "scripts": {
     "start": "bun src/index.ts",
-    "dev": "bun run --watch src/index.ts"
+    "dev": " bun run tailwind-watch & bun --hot src/index.ts",
+    "create-database": "echo 'PRAGMA schema_version;' | sqlite3 database.db && echo 'database created'",
+    "tailwind-watch": "bunx tailwindcss -i ./src/tailwind.css -o ./public/output.css --watch"
   },
   "dependencies": {
     "@elysiajs/html": "^0.8.0",
@@ -11,11 +13,12 @@
     "@libsql/client": "^0.5.3",
     "elysia": "latest",
     "fuzzy": "^0.1.3",
-    "get-youtube-id": "^1.0.1",
-    "marked": "^12.0.0"
+    "marked": "^12.0.1",
+    "open": "^10.1.0"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "tailwindcss": "^3.4.1"
   },
   "module": "src/index.js"
 }

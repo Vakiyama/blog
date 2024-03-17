@@ -1,6 +1,5 @@
-import { parseToHtml } from '../parser/markdownToHtml';
-import { HtmlLayout } from '../components/htmlLayout';
-import { Telescope } from './home';
+import { HtmlLayout } from '../components/HtmlLayout';
+import { Telescope } from './Home';
 import { marked } from 'marked';
 
 export const Blog = ({
@@ -12,7 +11,7 @@ export const Blog = ({
 }) => {
   const html = marked.parse(markdown);
   return (
-    <HtmlLayout css={['home.css']} title={blogName}>
+    <HtmlLayout title={blogName}>
       <>
         <Telescope home={false} />
         <main class="blog">{html}</main>

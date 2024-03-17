@@ -1,6 +1,6 @@
 import { Elysia, NotFoundError, t } from 'elysia';
 import { html } from '@elysiajs/html';
-import { Blog } from '../pages/blog';
+import { Blog } from '../pages/Blog';
 import { getBlogById } from '../database/tables/Blog';
 
 export const blogRouter = new Elysia().use(html()).get(

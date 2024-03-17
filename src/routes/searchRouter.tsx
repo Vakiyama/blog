@@ -1,9 +1,9 @@
 import { Elysia, t, InternalServerError } from 'elysia';
 import { html } from '@elysiajs/html';
-import { GuideText, Link } from '../pages/home';
+import { GuideText, Link } from '../pages/Home';
 import fuzzy from 'fuzzy';
 import { marked } from 'marked';
-import { getBlogs } from '../database/tables/Blog';
+import { createBlogTable, getBlogs, type Blog } from '../database/tables/Blog';
 
 function LinkList({
   links,
@@ -55,7 +55,14 @@ const internalLinks: InternalLink[] = [
   },
 ];
 
-const blogs = await getBlogs();
+let blogs: Blog[];
+
+try {
+  blogs = await getBlogs();
+} catch (e) {
+  await createBlogTable();
+  blogs = await getBlogs();
+}
 
 function searchBlogs(queryString: string) {
   const newLinks = blogs.map(

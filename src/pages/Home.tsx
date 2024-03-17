@@ -1,4 +1,4 @@
-import { HtmlLayout } from '../components/htmlLayout';
+import { HtmlLayout } from '../components/HtmlLayout';
 
 export function GuideText() {
   return (

@@ -1,5 +1,5 @@
-import { ResultSet } from '@libsql/client/.';
 import { client } from '../client';
+import { parseTable, type OmitMultiple } from '../tableParser';
 
 interface Table {
   id: number;
@@ -11,17 +11,16 @@ export interface Blog extends Table {
   timestamp: number;
 }
 
-type OmitMultiple<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
-
-function parseTable<T>(result: ResultSet) {
-  return result.rows.map((row) => {
-    return Object.keys(row).reduce((object, key, index) => {
-      if (index >= result.columns.length) return object;
-      const rowName = result.columns[index];
-      object[rowName] = row[key];
-      return object;
-    }, {} as any);
-  }) as T[];
+export async function createBlogTable(): Promise<void> {
+  const query = `
+  CREATE TABLE blogs (
+    id integer primary key autoincrement not null,
+    title text not null,
+    body text not null,
+    timestamp datetime not null
+  );
+  `;
+  await client.execute(query);
 }
 
 export async function getBlogs(): Promise<Blog[]> {

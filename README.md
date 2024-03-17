@@ -1,30 +1,39 @@
-# Elysia with Bun runtime
+# BETH Stack + Tailwind
 
-## WIP (as all things are)
+## Quickstart
 
-Site live @ https://blog-hv43.onrender.com/
+### Configure your .env file
 
-UI/UX Inspired by my favorite neovim plugin, [nvim/telescope](https://github.com/nvim-telescope/telescope.nvim)
+A template .env-template is provided for you that should be filled in.
 
-Color pallete from my favorite theme, [catppuccin](https://github.com/catppuccin/catppuccin) - Frappe flavored
-
-## Todo:
-
-- [x] Implement search by blog
-- [x] Parse markdown
-- [ ] Parsing images for blog posts
-- [ ] Improve blog data structure to contain metadata (move to Turso?)
-- [ ] Add date published, edit history, version history
-- [ ] Resizing of telescope UI for mobile
-- [ ] Figure out mobile solution for commands
-- [ ] Add search by content (ripgrep style telescope)
-
-## Development
-
-To start the development server run:
+**.env-template**
 
 ```bash
+IS_DEV=TRUE
+DB_URL= # live turso connection string, can be ignored if not using turso
+AUTH_TOKEN=  # for connecting to turso, same as above
+LOCAL_DB_URL= # ./database.db (you can run with just this for a while)
+```
+
+Rename `.env-template` to `.env`
+
+If you choose not to use SQLite or the Turso ts sdk, feel free to ignore
+the db related variables.
+
+```
+bun i
 bun run dev
 ```
 
-Open http://localhost:3000/ with your browser to see the result.
+Your server should be up at `localhost:3000` 🚀
+
+Elysia will autorefresh your browser whenever bun detects a change while
+running in dev mode, although it has only been tested on my machine.
+
+## **Bun, Elysia, Turso, HTMX + Tailwind**
+
+For building small to mid scale applications with a pleasant DX.
+
+HTMX powers client side interactivity with a server focused setup.
+
+Setup with an sqlite database that can be used to transition to Turso.

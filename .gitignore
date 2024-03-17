@@ -1,5 +1,13 @@
 # Based on https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore
 
+# tailwind output
+
+public/output.css
+
+# Local DB
+
+database.db
+
 # Logs
 
 logs

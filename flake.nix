@@ -1,5 +1,5 @@
 {
-    description = "a Bun ts project";
+    description = "BETH Stack";
 
     inputs = {
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

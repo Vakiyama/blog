@@ -1,18 +1,15 @@
-import { Head } from './head';
-import { Navbar } from './navbar';
+import { Head } from './Head';
 
 export const HtmlLayout = ({
   title,
-  css,
   children,
 }: {
   title: string;
-  css: string[];
   children: JSX.Element;
 }) => {
   return (
     <html lang="en">
-      <Head title={title} css={css} />
+      <Head title={title} />
       <body>{children}</body>
     </html>
   );

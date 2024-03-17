@@ -84,7 +84,16 @@ export function Link({
 function TelescopeGui({ home }: { home: boolean }) {
   return (
     <>
-      <div class={`leftWrapper`}>
+      <div
+        class="
+      leftWrapper
+      lg:w-[57.8%]
+      flex
+      flex-col
+      justify-between
+      lg:mr-5
+      "
+      >
         <div class="links telescopeBorder">
           <div class="borderHeader linkHeader">
             <p>Links</p>
@@ -100,9 +109,42 @@ function TelescopeGui({ home }: { home: boolean }) {
 }
 
 export function Telescope({ home = true }: { home?: boolean }) {
+  /*
+  background-color: var(--base);
+  position: fixed;
+  max-width: 1640px;
+  height: 790px;
+  width: calc(100% - 40px);
+  display: flex;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 12px;
+  */
   return (
     <>
-      <div class="telescope hidden">
+      <div
+        class="
+      telescope
+      bg-base 
+      fixed 
+      max-w-[1640px] 
+      w-[calc(100%-40px)]
+      flex
+      z-10
+      top-1/2
+      left-1/2
+      -translate-x-1/2
+      -translate-y-1/2
+      pt-3
+      h-[90dvh]
+      text-xl 
+
+      md:text-m
+      md:h-[790px]
+      "
+      >
         <TelescopeGui home={home} />
       </div>
     </>
@@ -111,16 +153,14 @@ export function Telescope({ home = true }: { home?: boolean }) {
 
 export const Home = () => {
   return (
-    <HtmlLayout css={['home.css']} title="Vitor Akiyama">
+    <HtmlLayout title="Vitor Akiyama">
       <>
         <Telescope home={true} />
-        <main>
-          <div class="intro">
-            <h1 class="intro_text">
-              Press <span class="highlight-command">Shift + S</span> to Search
-            </h1>
-          </div>
-        </main>
+        <div class="intro h-screen w-screen fixed left-0 top-0 flex items-center justify-center bg-base">
+          <h1 class="mt-0 mb-0 ml-auto mr-auto w-fit relative bottom-14 text-4xl text-text">
+            Press <span class="text-mauve">Shift + S</span> to Search
+          </h1>
+        </div>
       </>
     </HtmlLayout>
   );

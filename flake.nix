@@ -17,6 +17,7 @@
                     turso-cli
                     sqlite
                     sqld
+                    concurrently
                 ];
             };
         }

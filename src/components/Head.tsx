@@ -20,6 +20,9 @@ export const Head = ({ title }: { title: string }) => {
       />
       <script src="https://unpkg.com/htmx.org@1.9.10"></script> {/* htmx */}
       <link rel="stylesheet" href={`/public/output.css`} /> {/* tailwind */}
+      <link rel="stylesheet" href={`/public/css/root.css`} />
+      <link rel="stylesheet" href={`/public/css/home.css`} />
+      <link rel="stylesheet" href={`/public/css/global.css`} />
     </head>
   );
 };

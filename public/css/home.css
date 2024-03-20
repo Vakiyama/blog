@@ -28,20 +28,6 @@ main.blog {
   width: 100%;
 }
 
-.telescopeBorder {
-  position: relative;
-  border: 2px solid var(--blue);
-  border-radius: 10px;
-}
-
-.leftWrapper {
-  width: 57.8%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-right: 20.4px;
-}
-
 .guide {
   width: 42%;
 }
@@ -77,12 +63,16 @@ main.blog {
   color: var(--blue);
 }
 
-.guide_textWrapper {
+.previewText {
   padding: 20px 40px;
   font-size: 28px;
   height: 95%;
   scrollbar-width: none;
   overflow-y: scroll;
+}
+
+.previewText p {
+  font-size: 24px;
 }
 
 ::-webkit-scrollbar {
@@ -95,15 +85,12 @@ main.blog {
 }
 
 .highlight-rosewater {
-  color: var(--rosewater);
 }
 
 .highlight-command {
-  color: var(--mauve);
 }
 
 .highlight-link {
-  color: var(--blue);
 }
 
 .searchInput {
@@ -165,19 +152,15 @@ p {
   top: 2px;
 }
 
-.guide_textWrapper p {
-  font-size: 18px;
-}
-
-.guide_textWrapper h1 {
+.previewText h1 {
   font-size: 30px;
 }
 
-.guide_textWrapper h2 {
+.previewText h2 {
   font-size: 22px;
 }
 
-.guide_textWrapper h3 {
+.previewText h3 {
   font-size: 18px;
 }
 
@@ -286,7 +269,6 @@ p {
 }
 
 .guideText p {
-  font-size: 28px;
 }
 
 .stopScroll {
@@ -319,11 +301,6 @@ p {
 
   .searchInput {
     font-size: 20px;
-  }
-
-  .leftWrapper {
-    width: 100%;
-    margin-right: 0;
   }
 
   main.blog {

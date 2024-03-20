@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'GET',
         `/search/preview?queryString=${encodeURIComponent(searchInput.value)}&home=${isHome}`,
         {
-          target: '.guide_textWrapper',
+          target: '.previewText',
         }
       )
       .then(() => {

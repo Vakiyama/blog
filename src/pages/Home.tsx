@@ -1,17 +1,20 @@
 import { HtmlLayout } from '../components/HtmlLayout';
 
+const telescopeBorder = 'relative border-2 rounded-[10px] border-blue';
+
 export function GuideText() {
   return (
-    <div class="guideText">
+    <div class="previewText">
       <br />
-      <p>
-        Hello, I'm <span class="highlight-rosewater">Vitor</span>.
+      <p class="text-2xl">
+        Hello, I'm <span class="highlight-rosewater text-rosewater">Vitor</span>
+        .
       </p>
       <p>Welcome to my blog.</p>
       <br />
-      <p>
+      <p class="text-2xl">
         Press{' '}
-        <span class="highlight-command">
+        <span class="highlight-command text-mauve">
           <b>Shift + S</b>
         </span>{' '}
         to open this menu anywhere.
@@ -23,12 +26,12 @@ export function GuideText() {
 
 function Guide({ showTutorialText = true }: { showTutorialText: boolean }) {
   return (
-    <div class="guide telescopeBorder">
+    <div class={`guide ${telescopeBorder} telescopeBorder`}>
       <div class="borderHeader guide_borderHeader">
         <p>Preview</p>
       </div>
       <div class="innerWrapper">
-        <div class="guide_textWrapper">{showTutorialText && <GuideText />}</div>
+        <div class="previewText">{showTutorialText && <GuideText />}</div>
       </div>
     </div>
   );
@@ -37,7 +40,7 @@ function Guide({ showTutorialText = true }: { showTutorialText: boolean }) {
 function Search() {
   return (
     <>
-      <div class="search telescopeBorder">
+      <div class={`search telescopeBorder ${telescopeBorder}`}>
         <p class="search_symbol">&gt;</p>
         <input
           class="searchInput"
@@ -73,7 +76,7 @@ export function Link({
       class="link"
       hx-trigger="mouseover"
       hx-get={`/search/preview?queryString=${encodeURI(children.toString())}&home=${isHome}`}
-      hx-target=".guide_textWrapper"
+      hx-target=".previewText" // this is the preview swap target
     >
       <img class="file_icon" src={src} alt="A filetype icon" />
       <a href={href}>{children}</a>
@@ -87,14 +90,16 @@ function TelescopeGui({ home }: { home: boolean }) {
       <div
         class="
       leftWrapper
+
       lg:w-[57.8%]
+      w-full
       flex
       flex-col
       justify-between
       lg:mr-5
       "
       >
-        <div class="links telescopeBorder">
+        <div class={`links telescopeBorder ${telescopeBorder}`}>
           <div class="borderHeader linkHeader">
             <p>Links</p>
           </div>

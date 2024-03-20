@@ -75,7 +75,7 @@ function searchBlogs(queryString: string) {
   );
   const allLinks = internalLinks.concat(newLinks);
   const options = {
-    pre: '<span class="highlight-link">',
+    pre: '<span class="highlight-link text-blue">',
     post: '</span>',
     extract: (el: InternalLink) => el.title,
   };
@@ -163,7 +163,7 @@ export const searchRouter = new Elysia()
           <>
             <p>External Link to: </p>
             <a href={topResult.href}>
-              <span class="highlight-link">{topResult.href}</span>
+              <span class="highlight-link text-blue">{topResult.href}</span>
             </a>
           </>
         );

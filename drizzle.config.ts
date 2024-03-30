@@ -1,5 +1,4 @@
-import { drizzle } from 'drizzle-orm/libsql';
-import { createClient } from '@libsql/client';
+import type { Config } from 'drizzle-kit';
 
 const isDev = process.env.IS_DEV;
 
@@ -18,6 +17,12 @@ const liveConfig = {
   authToken,
 };
 
-const client = createClient(isDev ? devConfig : liveConfig);
+console.log(isDev)
+console.log(devConfig)
 
-export const db = drizzle(client);
+export default {
+  schema: './src/database/schema/*.ts',
+  out: './drizzle',
+  driver: isDev ? 'better-sqlite' : 'turso',
+  dbCredentials: isDev ? devConfig : liveConfig,
+} satisfies Config;

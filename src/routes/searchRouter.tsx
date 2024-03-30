@@ -3,7 +3,8 @@ import { html } from '@elysiajs/html';
 import { GuideText, Link } from '../pages/Home';
 import fuzzy from 'fuzzy';
 import { marked } from 'marked';
-import { createBlogTable, getBlogs, type Blog } from '../database/tables/Blog';
+import { blogs } from '../database/schema/blogs';
+import { db } from '../database/client';
 
 function LinkList({
   links,
@@ -36,40 +37,34 @@ function LinkList({
 // we also have our internal links
 
 type InternalLink = {
-  title: string;
+  name: string;
   href: string;
   src: string;
-  body?: string;
+  contents?: string;
   formated?: string;
 };
 const internalLinks: InternalLink[] = [
   {
-    title: 'index.html',
+    name: 'index.html',
     href: '/',
     src: 'https://www.svgrepo.com/show/478664/html-tag.svg',
   },
   {
-    title: 'github/Vakiyama',
+    name: 'github/Vakiyama',
     href: 'https://github.com/Vakiyama',
     src: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg',
   },
 ];
 
-let blogs: Blog[];
-
-try {
-  blogs = await getBlogs();
-} catch (e) {
-  await createBlogTable();
-  blogs = await getBlogs();
-}
+type Blog = typeof blogs.$inferSelect;
+let loadedBlogs: Blog[] = await db.select().from(blogs).all();
 
 function searchBlogs(queryString: string) {
-  const newLinks = blogs.map(
+  const newLinks = loadedBlogs.map(
     (blog): InternalLink => ({
-      title: blog.title,
+      name: blog.name,
       href: `/blogs/${blog.id}`,
-      body: blog.body,
+      contents: blog.contents,
       src: 'https://www.svgrepo.com/show/368813/markdown.svg',
     })
   );
@@ -77,7 +72,7 @@ function searchBlogs(queryString: string) {
   const options = {
     pre: '<span class="highlight-link text-blue">',
     post: '</span>',
-    extract: (el: InternalLink) => el.title,
+    extract: (el: InternalLink) => el.name,
   };
   const results = fuzzy
     .filter(queryString.trim(), allLinks, options)
@@ -98,7 +93,7 @@ export const searchRouter = new Elysia()
         const result = searchBlogs(queryString);
         if (home) {
           const homeIndex = result.findIndex(
-            (result) => result.title === 'index.html'
+            (result) => result.name === 'index.html'
           );
           result.splice(homeIndex, homeIndex > -1 ? 1 : 0);
         }
@@ -131,22 +126,22 @@ export const searchRouter = new Elysia()
         lastResult.value = queryString;
         return;
       }
-      if (lastResult.value === topResult.title) {
+      if (lastResult.value === topResult.name) {
         set.status = 204;
         return;
       }
-      if (topResult.title.endsWith('md')) {
+      if (topResult.name.endsWith('md')) {
         try {
-          if (topResult.body === undefined)
+          if (topResult.contents === undefined)
             throw new Error('Missing body in article');
-          const html = marked.parse(topResult.body);
-          lastResult.value = topResult.title;
+          const html = marked.parse(topResult.contents);
+          lastResult.value = topResult.name;
           return <>{html}</>;
         } catch (e) {
           console.log(e);
           throw new InternalServerError();
         }
-      } else if (topResult.title.endsWith('html')) {
+      } else if (topResult.name.endsWith('html')) {
         if (lastResult.value === 'index') {
           set.status = 204;
           return;

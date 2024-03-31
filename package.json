@@ -3,7 +3,7 @@
   "version": "1.0.50",
   "scripts": {
     "start": "bun src/index.ts",
-    "dev": "bun run tailwind-watch & bun --hot src/index.ts",
+    "dev": "bun --hot src/index.ts",
     "create-database": "echo 'PRAGMA schema_version;' | sqlite3 database.db && echo 'database created'",
     "tailwind-watch": "bun x tailwindcss -i ./src/tailwind.css -o ./public/output.css --watch",
     "drizzle-generate": "drizzle-kit generate:sqlite",

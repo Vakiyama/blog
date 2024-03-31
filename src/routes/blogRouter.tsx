@@ -6,19 +6,16 @@ import { db } from '../database/client';
 import { eq } from 'drizzle-orm';
 
 export const blogRouter = new Elysia().use(html()).get(
-  '/blogs/:id',
-  async ({ params: { id } }) => {
+  '/blogs/:name',
+  async ({ params: { name } }) => {
     try {
       const blog = (
-        await db
-          .select()
-          .from(blogs)
-          .where(eq(blogs.id, parseInt(id)))
+        await db.select().from(blogs).where(eq(blogs.name, name))
       )[0];
       return <Blog markdown={blog.contents} blogName={blog.name} />;
     } catch (e) {
       throw new NotFoundError();
     }
   },
-  { params: t.Object({ id: t.String() }) }
+  { params: t.Object({ name: t.String() }) }
 );

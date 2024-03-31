@@ -21,9 +21,14 @@ function LinkList({
     <>
       {links.map(({ href, src, formated }, index) => {
         return (
-          <Link href={href} src={src} isHome={true}>
+          <Link
+            href={href}
+            src={src}
+            isHome={true}
+            external={!formated?.endsWith('md') && !formated?.endsWith('html')}
+          >
             {index === 0 && queryString ? (
-              <span class="highlight-rosewater">{formated && formated} </span>
+              <span class="text-rosewater">{formated && formated}</span>
             ) : (
               <>{formated ? formated : null}</>
             )}
@@ -63,7 +68,7 @@ function searchBlogs(queryString: string) {
   const newLinks = loadedBlogs.map(
     (blog): InternalLink => ({
       name: blog.name,
-      href: `/blogs/${blog.id}`,
+      href: `/blogs/${blog.name}`,
       contents: blog.contents,
       src: 'https://www.svgrepo.com/show/368813/markdown.svg',
     })

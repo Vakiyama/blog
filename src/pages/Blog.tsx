@@ -1,6 +1,7 @@
 import { HtmlLayout } from '../components/HtmlLayout';
 import { Telescope } from './Home';
 import { marked } from 'marked';
+import { telescopeBorder } from './Home';
 
 export const Blog = ({
   markdown,
@@ -14,8 +15,17 @@ export const Blog = ({
     <HtmlLayout title={blogName}>
       <>
         <Telescope home={false} />
-        <main class="blog">{html}</main>
-        <div class="searchOpen telescopeBorder">
+        <main
+          class="
+        max-w-[840px]
+        w-[calc(100%-80px)]
+        p-10
+        relative
+        "
+        >
+          {html}
+        </main>
+        <div class={`searchOpen ${telescopeBorder}`}>
           <img
             src="https://www.svgrepo.com/show/532555/search.svg"
             alt="search button"

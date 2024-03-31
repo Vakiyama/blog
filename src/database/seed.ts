@@ -2,23 +2,20 @@ import { db } from './client';
 import { blogs } from './schema/blogs';
 import { faker } from '@faker-js/faker';
 
-async function insertBlog(blog: typeof blogs.$inferInsert) {
-  return db.insert(blogs).values(blog);
-}
+await db.delete(blogs);
 
-insertBlog({
-  name: 'seed blog 1',
-  contents: faker.lorem.words(500),
-});
-
-insertBlog({
-  name: 'seed blog 2',
-  contents: faker.lorem.words(500),
-});
-
-insertBlog({
-  name: 'beth stack readme',
-  contents: `# BETH Stack + Tailwind
+db.insert(blogs).values([
+  {
+    name: 'seed-blog-1.md',
+    contents: faker.lorem.words(500),
+  },
+  {
+    name: 'seed-blog-2.md',
+    contents: faker.lorem.words(500),
+  },
+  {
+    name: 'beth-stack-readme.md',
+    contents: `# BETH Stack + Tailwind
 
 ## Motivation
 
@@ -60,4 +57,5 @@ running in dev mode.
 
 Bun, Elysia, Turso (+ Drizzle), HTMX && TailwindCSS
 `,
-});
+  },
+]);

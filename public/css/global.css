@@ -7,6 +7,10 @@ body {
   align-items: center;
 }
 
+* {
+  scrollbar-width: none;
+}
+
 main {
   width: 100%;
   margin: 0 auto;
@@ -36,6 +40,25 @@ nav a {
   font-weight: bold;
   font-size: 20px;
   color: var(--blue);
+}
+
+pre {
+  background-color: var(--surface0);
+  color: var(--mauve);
+  overflow-x: scroll;
+  scrollbar-width: 2px !important;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+pre code {
+  padding: 0;
+}
+
+code {
+  font-size: 0.9em;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 h1 {

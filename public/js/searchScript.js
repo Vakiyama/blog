@@ -18,6 +18,7 @@ function openMenu() {
   if (!isHome) {
     document.body.classList.add('stopScroll');
   }
+
   setTimeout(() => search.focus(), 50);
 }
 
@@ -58,11 +59,9 @@ document.addEventListener('keydown', (ev) => {
 
 const searchPlaceholders = [
   'a blog...',
-  'a post...',
-  'an article...',
-  'a note...',
-  'a file...',
-  'a thought...',
+  'an idea...',
+  'a resource...',
+  'a guide...',
 ];
 let placeholderIndex = 0;
 

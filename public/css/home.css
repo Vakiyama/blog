@@ -15,38 +15,8 @@ main {
   flex-direction: column;
 }
 
-main.blog {
-  max-width: 840px;
-  width: calc(100% - 80px);
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-bottom: 40px;
-  position: relative;
-}
-
 .blog img {
   width: 100%;
-}
-
-.guide {
-}
-
-.guide_borderWrapper {
-  z-index: 1;
-  height: 100%;
-}
-
-.links {
-  height: 89.87%;
-  display: flex;
-  flex-direction: column;
-}
-
-.search {
-  height: 7.595%;
-  display: flex;
-  align-items: center;
-  padding-left: 6px;
 }
 
 .search_symbol {
@@ -85,24 +55,10 @@ p {
 }
 
 .links_linkWrapper {
-  overflow-y: scroll;
-  height: 100%;
-  height: fit-content;
-  font-size: 26px;
-  margin-left: 6%;
-  margin-top: 14px;
-  padding-top: 5%;
 }
 
 .links_linkWrapper a {
   color: var(--text);
-}
-
-.link {
-  display: flex;
-  align-items: center;
-  margin: 6px 0;
-  width: fit-content;
 }
 
 .link:hover {
@@ -235,10 +191,6 @@ p {
 @media screen and (max-width: 1000px) {
   .guide {
     display: none;
-  }
-
-  .links_linkWrapper {
-    font-size: 20px;
   }
 
   .searchInput {

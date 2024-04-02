@@ -74,8 +74,25 @@ function Guide({ showTutorialText = true }: { showTutorialText: boolean }) {
 function Search() {
   return (
     <>
-      <div class={`search ${telescopeBorder}`}>
-        <p class="search_symbol">&gt;</p>
+      <div
+        class={`
+      search 
+      h-[7.595%]
+      flex
+      items-center
+      pl-1.5
+      ${telescopeBorder}`}
+      >
+        <p
+          class="
+        text-3xl
+        font-bold
+        text-blue
+        ml-2
+        "
+        >
+          &gt;
+        </p>
         <input
           class="
           searchInput
@@ -142,13 +159,39 @@ export function Link({
 }) {
   return (
     <div
-      class="link"
+      class="
+      flex
+      items-center
+      mb-1.5
+      mt-1.5
+      w-fit
+      hover:opacity-70
+      "
       hx-trigger="mouseover"
       hx-get={`/search/preview?queryString=${encodeURI(children.toString())}&home=${isHome}`}
       hx-target=".previewText" // this is the preview swap target
     >
-      <img class="file_icon" src={src} alt="A filetype icon" />
-      <a href={href} target={external ? '_blank' : undefined}>
+      <img
+        class="
+      w-[26px]
+      ml-3
+      mr-3
+      invert
+      relative
+      top-0.5
+      "
+        src={src}
+        alt="A filetype icon"
+      />
+      <a
+        href={href}
+        target={external ? '_blank' : undefined}
+        class="hover:opacity-100
+        text-xl
+        lg:text-2xl
+        text-text
+        "
+      >
         {children}
       </a>
       {external && (
@@ -192,7 +235,14 @@ function TelescopeGui({ home }: { home: boolean }) {
       lg:mr-5
       `}
       >
-        <div class={`links ${telescopeBorder}`}>
+        <div
+          class={`${telescopeBorder}
+        h-[89.87%]
+        flex
+        flex-col
+        pl-10
+        `}
+        >
           <div class={`${borderHeader} linkHeader`}>
             <p
               class="
@@ -209,7 +259,15 @@ function TelescopeGui({ home }: { home: boolean }) {
               Links
             </p>
           </div>
-          <div class="links_linkWrapper"></div>
+          <div
+            class="
+          links_linkWrapper
+          overflow-y-scroll
+          h-fit
+          mt-4
+          pt-[5%]
+          "
+          ></div>
         </div>
         <Search />
       </div>
@@ -220,19 +278,6 @@ function TelescopeGui({ home }: { home: boolean }) {
 }
 
 export function Telescope({ home = true }: { home?: boolean }) {
-  /*
-  background-color: var(--base);
-  position: fixed;
-  max-width: 1640px;
-  height: 790px;
-  width: calc(100% - 40px);
-  display: flex;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding-top: 12px;
-  */
   return (
     <>
       <div

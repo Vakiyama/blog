@@ -2,7 +2,7 @@
 
 ## WIP
 
-Site live @ https://blog-hv43.onrender.com/
+Site live @ https://vitorakiyama.com
 
 UI/UX Inspired (copied) from my favorite neovim plugin, [nvim/telescope](https://github.com/nvim-telescope/telescope.nvim)
 
@@ -19,8 +19,10 @@ stack: [beth-stack](https://github.com/Vakiyama/beth-stack)
 - [x] Resizing of telescope UI for mobile
 - [x] Figure out mobile solution for commands
 - [x] Migrate to tailwind
+- [ ] 404 Page
 - [ ] Add date published
 - [ ] Edit history, version history
+- [ ] Read time per blog
 - [ ] Add search by content (ripgrep style telescope)
 - [ ] Env variables are a bit strange rn
 - [ ] Admin dashboard for blog crud operations

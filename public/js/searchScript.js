@@ -139,11 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   searchInput.addEventListener('input', search);
   const searchButton = document.querySelector('.searchOpen');
-  searchButton.addEventListener('click', () => {
-    if (telescope.classList.contains('hidden')) {
-      openMenu();
-    } else {
-      closeMenu();
-    }
-  });
+  searchButton &&
+    searchButton.addEventListener('click', () => {
+      if (telescope.classList.contains('hidden')) {
+        openMenu();
+      } else {
+        closeMenu();
+      }
+    });
 });

@@ -21,6 +21,9 @@ export const Head = ({ title }: { title: string }) => {
         rel="stylesheet"
       />
       <script src="https://unpkg.com/htmx.org@1.9.10"></script> {/* htmx */}
+      <script type="text/javascript" src="/public/js/posthog.js" >
+      </script>{' '}
+      {/* posthog */}
       {/* tailwind */}
       <link
         rel="stylesheet"

@@ -4,7 +4,7 @@
 
 Site live @ https://blog-hv43.onrender.com/
 
-UI/UX Inspired (copied) by my favorite neovim plugin, [nvim/telescope](https://github.com/nvim-telescope/telescope.nvim)
+UI/UX Inspired (copied) from my favorite neovim plugin, [nvim/telescope](https://github.com/nvim-telescope/telescope.nvim)
 
 Color pallete from my favorite theme, [catppuccin](https://github.com/catppuccin/catppuccin) - Frappe flavored
 

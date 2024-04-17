@@ -36,7 +36,7 @@ export const Blog = ({
               alt="search button"
             />
           </div>
-          <script src="/public/js/blogScript.js"></script>
+          <script src="/public/js/blogScripts.js"></script>
         </div>
       </>
     </HtmlLayout>

@@ -9,6 +9,7 @@ function isTouchDevice() {
 }
 
 const telescope = document.querySelector('.telescope');
+const blogBackground = document.querySelector('.blog-background');
 const search = document.querySelector('.searchInput');
 
 function openMenu() {

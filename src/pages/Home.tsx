@@ -88,7 +88,6 @@ function Search() {
         text-3xl
         font-bold
         text-blue
-        ml-2
         "
         >
           &gt;
@@ -281,8 +280,14 @@ export function Telescope({ home = true }: { home?: boolean }) {
   return (
     <>
       <div
-        class={`
-      telescope
+        class={`telescope
+      w-screen
+      h-screen
+      bg-base
+      ${!home && 'hidden'}`}
+      >
+        <div
+          class={`
       bg-base 
       fixed 
       max-w-[1640px] 
@@ -299,10 +304,10 @@ export function Telescope({ home = true }: { home?: boolean }) {
 
       md:text-m
       md:h-[790px]
-      ${!home && 'hidden'} 
       `}
-      >
-        <TelescopeGui home={home} />
+        >
+          <TelescopeGui home={home} />
+        </div>
       </div>
     </>
   );

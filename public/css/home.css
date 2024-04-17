@@ -34,18 +34,6 @@ main {
   scrollbar-width: none; /* Firefox */
 }
 
-.highlight-rosewater {
-}
-
-.highlight-command {
-}
-
-.highlight-link {
-}
-
-.searchInput {
-}
-
 .searchInput:focus {
   outline: none;
 }

@@ -1,5 +1,4 @@
 import { Elysia, t, InternalServerError } from 'elysia';
-import { html } from '@elysiajs/html';
 import { GuideText, Link } from '../pages/Home';
 import fuzzy from 'fuzzy';
 import { marked } from 'marked';
@@ -19,13 +18,13 @@ function LinkList({
 
   return (
     <>
-      {links.map(({ href, src, formated }, index) => {
+      {links.map(({ href, src, formated, name }, index) => {
         return (
           <Link
             href={href}
             src={src}
             isHome={true}
-            external={!formated?.endsWith('md') && !formated?.endsWith('html')}
+            external={!name.endsWith('md') && !name.endsWith('html')}
           >
             {index === 0 && queryString ? (
               <span class="text-rosewater">{formated && formated}</span>
@@ -50,7 +49,7 @@ type InternalLink = {
 };
 const internalLinks: InternalLink[] = [
   {
-    name: 'index.html',
+    name: 'home.html',
     href: '/',
     src: 'https://www.svgrepo.com/show/478664/html-tag.svg',
   },
@@ -90,7 +89,6 @@ function searchBlogs(queryString: string) {
 }
 
 export const searchRouter = new Elysia()
-  .use(html())
   .get(
     '/search',
     ({ query: { queryString, home } }) => {
@@ -98,7 +96,7 @@ export const searchRouter = new Elysia()
         const result = searchBlogs(queryString);
         if (home) {
           const homeIndex = result.findIndex(
-            (result) => result.name === 'index.html'
+            (result) => result.name === 'home.html'
           );
           result.splice(homeIndex, homeIndex > -1 ? 1 : 0);
         }

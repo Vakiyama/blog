@@ -14,6 +14,7 @@ body {
 main {
   width: 100%;
   margin: 0 auto;
+  font-size: 18px;
 }
 
 nav {
@@ -63,10 +64,13 @@ code {
 
 h1 {
   font-size: 32px;
+  margin-bottom: 14px;
 }
 
 h2 {
+  font-size: 26px;
   color: var(--subtext1);
+  margin-top: 24px;
 }
 
 h3,

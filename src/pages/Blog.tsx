@@ -14,24 +14,30 @@ export const Blog = ({
   return (
     <HtmlLayout title={blogName}>
       <>
-        <Telescope home={false} />
-        <main
-          class="
+        <div class="blog-background bg-crust w-full">
+          <Telescope home={false} />
+          <main
+            class="
         max-w-[840px]
         w-[calc(100%-80px)]
+        mt-10
+        mb-10
         p-10
         relative
+        bg-base
+        rounded
         "
-        >
-          {html}
-        </main>
-        <div class={`searchOpen ${telescopeBorder}`}>
-          <img
-            src="https://www.svgrepo.com/show/532555/search.svg"
-            alt="search button"
-          />
+          >
+            {html}
+          </main>
+          <div class={`searchOpen ${telescopeBorder}`}>
+            <img
+              src="https://www.svgrepo.com/show/532555/search.svg"
+              alt="search button"
+            />
+          </div>
+          <script src="/public/js/blogScript.js"></script>
         </div>
-        <script src="/public/js/blogScript.js"></script>
       </>
     </HtmlLayout>
   );

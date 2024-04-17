@@ -1,3 +1,5 @@
+import { isDev } from '../database/client';
+
 export const Head = ({ title }: { title: string }) => {
   return (
     <head>
@@ -19,7 +21,11 @@ export const Head = ({ title }: { title: string }) => {
         rel="stylesheet"
       />
       <script src="https://unpkg.com/htmx.org@1.9.10"></script> {/* htmx */}
-      <link rel="stylesheet" href={`/public/output.css`} /> {/* tailwind */}
+      {/* tailwind */}
+      <link
+        rel="stylesheet"
+        href={isDev ? '/public/output.css' : '/public/build.css'}
+      />
       <link rel="stylesheet" href={`/public/css/root.css`} />
       <link rel="stylesheet" href={`/public/css/home.css`} />
       <link rel="stylesheet" href={`/public/css/global.css`} />

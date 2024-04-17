@@ -36,6 +36,7 @@ const callback: ListenCallback = async ({ hostname, port }) => {
 };
 
 if (process.env.IS_DEV) {
+  console.log(process.env.IS_DEV)
   console.log('Running in dev environment!');
   app.listen(PORT, callback);
 } else {

@@ -1,0 +1,74 @@
+import { telescopeBorder, borderHeader } from '..';
+
+export function Search() {
+  return (
+    <>
+      <div
+        class={`
+      search 
+      h-[7.595%]
+      flex
+      items-center
+      pl-1.5
+      ${telescopeBorder}`}
+      >
+        <p
+          class="
+        text-3xl
+        font-bold
+        text-blue
+        "
+        >
+          &gt;
+        </p>
+        <input
+          class="
+          searchInput
+          w-full
+          h-full
+          p-[5px]
+          border-none
+          bg-transparent
+          text-text
+          text-2xl
+          ml-1
+          relative
+          top-px
+          "
+          type="search"
+          name="queryString"
+          placeholder="Search for an article..."
+          autocomplete="false"
+          autofocus="true"
+          hx-trigger='keyup[key=="Enter"] from:input'
+          hx-get="/search/redirect-blog"
+        />
+        <div
+          class={`${borderHeader} 
+        -top-3
+        h-5
+        flex
+        w-[120px]
+        items-center
+        justify-center
+        `}
+        >
+          <p
+            class="
+        text-center
+        text-xl
+        mt-2
+        mb-2
+        ml-0
+        mr-0
+        sm:text-2xl
+        relative
+          "
+          >
+            Search
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}

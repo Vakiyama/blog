@@ -1,9 +1,11 @@
 import { Elysia, t, InternalServerError } from 'elysia';
-import { GuideText, Link } from '../pages/Home';
+import { Link } from '../pages/home/components/Link';
+import { GuideText } from '../pages/home/components/GuideText';
 import fuzzy from 'fuzzy';
 import { marked } from 'marked';
 import { blogs } from '../database/schema/blogs';
 import { db } from '../database/client';
+// import { posthogClient } from '../analytics/posthog';
 
 function LinkList({
   links,
@@ -64,6 +66,13 @@ type Blog = typeof blogs.$inferSelect;
 let loadedBlogs: Blog[] = await db.select().from(blogs).all();
 
 function searchBlogs(queryString: string) {
+  /*
+  posthogClient.capture({
+    distinctId: 'anoynmous',
+    event: 'user_searched',
+    properties: { queryString },
+  });
+  */
   const newLinks = loadedBlogs.map(
     (blog): InternalLink => ({
       name: blog.name,

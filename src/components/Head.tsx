@@ -32,6 +32,7 @@ export const Head = ({ title }: { title: string }) => {
       <link rel="stylesheet" href={`/public/css/root.css`} />
       <link rel="stylesheet" href={`/public/css/home.css`} />
       <link rel="stylesheet" href={`/public/css/global.css`} />
+      <link rel="icon" href="public/favicon.svg" type="image/svg+xml" />
     </head>
   );
 };

@@ -1,7 +1,7 @@
-import { HtmlLayout } from '../components/HtmlLayout';
-import { Telescope } from './Home';
+import { HtmlLayout } from '../../components/HtmlLayout';
+import { Telescope } from '../../components/Telescope';
 import { marked } from 'marked';
-import { telescopeBorder } from './Home';
+import { telescopeBorder } from '../home';
 
 export const Blog = ({
   markdown,
@@ -19,13 +19,16 @@ export const Blog = ({
           <main
             class="
         max-w-[840px]
-        w-[calc(100%-80px)]
+        lg:w-[calc(100%-80px)]
+        w-[calc(100%)]
         mt-10
         mb-10
-        p-10
+        p-5
+        sm:p-10
         relative
         bg-base
-        rounded
+        sm:rounded
+        rounded-none
         "
           >
             {html}

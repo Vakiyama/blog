@@ -1,6 +1,7 @@
 import { Elysia, ListenCallback } from 'elysia';
 import { staticPlugin } from '@elysiajs/static';
 import { html } from '@elysiajs/html';
+import { posthogClient } from './analytics/posthog';
 import open from 'open';
 
 import { indexRouter } from './routes/indexRouter';
@@ -16,6 +17,12 @@ declare global {
 export const app = new Elysia()
   .use(staticPlugin())
   .use(html())
+  .onError(({ code, error }) => {
+    console.log(code, error);
+  })
+  .onBeforeHandle(({ request }) => {
+    console.log(request.method, request.url);
+  })
   .use(indexRouter)
   .use(blogRouter)
   .use(searchRouter)
@@ -46,3 +53,12 @@ if (process.env.IS_DEV) {
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
 );
+
+async function cleanup() {
+  console.log('Attempting graceful shutdown...');
+  await posthogClient.shutdown();
+  process.exit(0);
+}
+
+process.on('SIGINT', cleanup);
+process.on('SIGTERM', cleanup);

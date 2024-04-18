@@ -50,6 +50,7 @@ function handleCommands(ev) {
     if (!hasUsedBefore) {
       localStorage.setItem('used', 'true');
     }
+    if (!isHome) return (window.location = '/');
     openMenu(search);
   }
 }
@@ -141,10 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchButton = document.querySelector('.searchOpen');
   searchButton &&
     searchButton.addEventListener('click', () => {
-      if (telescope.classList.contains('hidden')) {
-        openMenu();
-      } else {
-        closeMenu();
-      }
+      window.location = '/';
     });
 });
